@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
+<script src="lib/hea.js"></script>
+<script src="lib/heb.js"></script>
+<script src="lib/hem.js"></script>
+<script src="lib/ipe.js"></script>
+<script src="lib/ipn.js"></script>
+<script src="lib/ipe.js"></script>
+<script src="lib/upe.js"></script>
+<script src="lib/upn.js"></script>
+<script src="js/moment.js"></script>
+    
+    <title>Document</title>
+</head>
+<body onload="cizim()">
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+	    <a class="navbar-brand" href="#">Navbar</a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	    </button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+		    <ul class="navbar-nav">
+			    <li class="nav-item active">
+				    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+			    </li> 
+			    <li class="nav-item dropdown">
+				    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Dropdown link
+				    </a>
+			    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				    <a class="dropdown-item" href="#">Çelik</a>
+				    <a class="dropdown-item" href="#">Betonarme</a>
+				    <a class="dropdown-item" href="#">Deprem</a>
+			    </div>
+			    </li>
+		    </ul>
+	    </div>
+    </nav>
+    
+    
+    
+    
+    
+    <div class="mt-3 mb-3 mx-auto canvas" id="canvas" style="border:1px solid black; width:90vw; height:200px"></div>
+    
+	<div class="dropdown-divider"></div>
+    
+    <div class="container">
+	    <div class="row">
+		    <div class="col">
+			    <label for="length">Kiriş Boyu (m)</label>
+		    </div>
+	    
+		    <div class="col">
+			    <input type="number" class="form-control" id="length" min="0" onchange="cizim()" value="2" onkeyup="minlength()">
+			    </div>
+	    </div>
+	   
+	    
+	    <div class="dropdown-divider"></div>
+	    
+	    <div class="row">
+	    
+	    		    <div class="col">
+	    			    <label class="label">Mesnet Koşulları</label>
+	    		    </div>
+	    		    
+	    		    <div class="col">
+	    		    
+	    				    <select class="custom-select" id="mesnet" onchange="cizim()">
+	    				    <option value="pp">Mafsallı - Mafsallı</option>
+	    				    <option value="pf">Mafsallı - Ankastre</option>
+	    				    <option value="ff">Ankastre - Ankastre</option>
+	    				    <option value="konsol">Konsol</option>
+	    				    </select>
+
+	    		    </div>
+	    		    
+	    </div>
+	    
+	    <div class="dropdown-divider"></div>
+	    
+	    <div class="row">
+	    		    <div class="col">
+	    			    <label for="loadG">Ölü Yük (kN/m)</label>
+	    		    </div>
+	    
+	    		    <div class="col">
+	    			    <input type="number" class="form-control" id="loadG" min="0" onchange="cizim()" value="5" onkeyup="minG()">
+	    			    </div>
+	    </div>
+	    
+	    <div class="dropdown-divider"></div>
+	    
+	    <div class="row">
+	    		    <div class="col">
+	    			    <label for="loadQ">Hareketli Yük (kN/m)</label>
+	    		    </div>
+	    
+	    		    <div class="col">
+	    			    <input type="number" class="form-control" id="loadQ" min="0" onchange="cizim()" value="2" onkeyup="minQ()">
+	    			    </div>
+	    </div>
+	    
+	    <div class="dropdown-divider"></div>
+	    
+	    <div class="row">
+	    		    <div class="col">
+	    			    <label for="loadS">Kar Yükü (kN/m)</label>
+	    		    </div>
+	    
+	    		    <div class="col">
+	    			    <input type="number" class="form-control" id="loadS" min="0" onchange="cizim()" value="0" onkeyup="minS()">
+	    			    </div>
+	    </div>
+	    
+	    <div class="dropdown-divider"></div>
+	    
+	    <div class="row">
+	    		    <div class="col">
+	    			    <label for="profiltype">Profil Tipi</label>
+	    		    </div>
+	    
+	    		    <div class="col">
+	    			    <select class="custom-select" id="profiltype" onchange="asd()">
+	    			    <option value="hea">HEA</option>
+	    			    <option value="heb">HEB</option>
+	    			    <option value="hem">HEM</option>
+	    			    <option value="ipe">IPE</option>
+	    			    <option value="ipn">IPN</option>
+	    			    <option value="upe">UPE</option>
+	    			    <option value="upn">UPN</option>
+	    			    </select>
+	    			    </div>
+	    </div>
+	    
+	    <div class="dropdown-divider"></div>
+	    
+	    <div class="row">
+	    		    <div class="col">
+	    			    <label for="profil">Profil</label>
+	    		    </div>
+	    
+	    		    <div class="col">
+	    			    <select class="custom-select" id="profil" onchange="cizim()">
+	    			    </select>
+	    			    </div>
+	    </div>
+	    
+	    <div class="dropdown-divider"></div>
+	    
+	    
+	    
+    </div>
+    
+    <div class="mt-3 mb-3 mx-auto canvas" id="canvas2" style="border:1px solid black; width:90vw; height:200px"></div>
+    
+    <div class="dropdown-divider"></div>
+    
+    <div class="mt-3 mb-3 mx-auto canvas" id="canvas3" style="border:1px solid black; width:90vw; height:200px"></div>
+    
+    <div class="dropdown-divider"></div>
+    
+    <div class="mt-3 mb-3 mx-auto canvas" id="canvas4" style="border:1px solid black; width:90vw; height:450px"></div>
+    
+    <div class="dropdown-divider"></div>
+    
+    <script type="text/javascript">
+    
+		function minG(){
+		  if(document.getElementById("loadG").value != ""){
+		    if(document.getElementById("loadG").value < 0){
+		      document.getElementById("loadG").value = 0;
+		    }
+		  }
+		}
+		
+		function minQ(){
+		  if(document.getElementById("loadQ").value != ""){
+		    if(document.getElementById("loadQ").value < 0){
+		      document.getElementById("loadQ").value = 0;
+		    }
+		  }
+		}
+		
+		function minS(){
+		  if(document.getElementById("loadS").value != ""){
+		    if(document.getElementById("loadS").value < 0){
+		      document.getElementById("loadS").value = 0;
+		    }
+		  }
+		}
+    
+		function minlength(){
+		  if(document.getElementById("length").value != ""){
+		    if(document.getElementById("length").value < 0){
+		      document.getElementById("length").value = 0;
+		    }
+		  }
+		}
+
+
+    var width = window.innerWidth*0.9;
+    var height = window.innerHeight;
+    var stx=width*0.125;
+    var endx=width*0.875;
+
+	function asd(){
+	clear();
+	cizim();
+	};			
+
+    function clear(){
+    	var select = document.getElementById("profil");
+    	var length = select.options.length;
+    	for (i = length-1; i >= 0; i--) {
+    	  select.options[i] = null;
+    	};};
+    	
+    
+    function cizim(){
+    
+    
+    var profiltype=document.getElementById("profiltype").value;
+    var profilsecim=document.getElementById("profil");
+    var profil=document.getElementById("profil").value;
+	var e=200000;	
+
+
+
+    if (profiltype=="hea"){var options=heaName;}
+    if (profiltype=="heb"){var options=hebName;}    
+    if (profiltype=="hem"){var options=hemName;}
+    if (profiltype=="ipe"){var options=ipeName;}
+    if (profiltype=="ipn"){var options=ipnName;}
+    if (profiltype=="upe"){var options=upeName;}
+    if (profiltype=="upn"){var options=upnName;}
+    
+    for(var i = 0; i < options.length; i++) {
+    var opt = options[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    profilsecim.appendChild(el);
+    };
+    
+    var profil=document.getElementById("profil").value;
+
+    if (profiltype=="hea"){
+    var m=parseFloat(hea_m(profil));
+    var d=parseFloat(hea_d(profil));
+    var h=parseFloat(hea_h(profil));
+    var bf=parseFloat(hea_bf(profil));
+    var tf=parseFloat(hea_tf(profil));
+    var tw=parseFloat(hea_tw(profil));
+    var r=parseFloat(hea_r(profil));
+    var h0=parseFloat(hea_h0(profil));
+    var lf=parseFloat(hea_lf(profil));
+    var lw=parseFloat(hea_lw(profil));
+    var its=parseFloat(hea_its(profil));
+    var a=parseFloat(hea_a(profil));
+    var ix=parseFloat(hea_ix(profil));
+    var iy=parseFloat(hea_iy(profil));
+    var wex=parseFloat(hea_wex(profil));
+    var wey=parseFloat(hea_wey(profil));
+    var wpx=parseFloat(hea_wpx(profil));
+    var wpy=parseFloat(hea_wpy(profil));
+    var rx=parseFloat(hea_rx(profil));
+    var ry=parseFloat(hea_ry(profil));
+    var j=parseFloat(hea_j(profil));
+    var cw=parseFloat(hea_cw(profil));}
+    
+    if (profiltype=="heb"){
+    var m=parseFloat(heb_m(profil));
+    var d=parseFloat(heb_d(profil));
+    var h=parseFloat(heb_h(profil));
+    var bf=parseFloat(heb_bf(profil));
+    var tf=parseFloat(heb_tf(profil));
+    var tw=parseFloat(heb_tw(profil));
+    var r=parseFloat(heb_r(profil));
+    var h0=parseFloat(heb_h0(profil));
+    var lf=parseFloat(heb_lf(profil));
+    var lw=parseFloat(heb_lw(profil));
+    var its=parseFloat(heb_its(profil));
+    var a=parseFloat(heb_a(profil));
+    var ix=parseFloat(heb_ix(profil));
+    var iy=parseFloat(heb_iy(profil));
+    var wex=parseFloat(heb_wex(profil));
+    var wey=parseFloat(heb_wey(profil));
+    var wpx=parseFloat(heb_wpx(profil));
+    var wpy=parseFloat(heb_wpy(profil));
+    var rx=parseFloat(heb_rx(profil));
+    var ry=parseFloat(heb_ry(profil));
+    var j=parseFloat(heb_j(profil));
+    var cw=parseFloat(heb_cw(profil));}
+    
+    if (profiltype=="hem"){
+    var m=parseFloat(hem_m(profil));
+    var d=parseFloat(hem_d(profil));
+    var h=parseFloat(hem_h(profil));
+    var bf=parseFloat(hem_bf(profil));
+    var tf=parseFloat(hem_tf(profil));
+    var tw=parseFloat(hem_tw(profil));
+    var r=parseFloat(hem_r(profil));
+    var h0=parseFloat(hem_h0(profil));
+    var lf=parseFloat(hem_lf(profil));
+    var lw=parseFloat(hem_lw(profil));
+    var its=parseFloat(hem_its(profil));
+    var a=parseFloat(hem_a(profil));
+    var ix=parseFloat(hem_ix(profil));
+    var iy=parseFloat(hem_iy(profil));
+    var wex=parseFloat(hem_wex(profil));
+    var wey=parseFloat(hem_wey(profil));
+    var wpx=parseFloat(hem_wpx(profil));
+    var wpy=parseFloat(hem_wpy(profil));
+    var rx=parseFloat(hem_rx(profil));
+    var ry=parseFloat(hem_ry(profil));
+    var j=parseFloat(hem_j(profil));
+    var cw=parseFloat(hem_cw(profil));}
+    
+    if (profiltype=="ipe"){
+    var m=parseFloat(ipe_m(profil));
+    var d=parseFloat(ipe_d(profil));
+    var h=parseFloat(ipe_h(profil));
+    var bf=parseFloat(ipe_bf(profil));
+    var tf=parseFloat(ipe_tf(profil));
+    var tw=parseFloat(ipe_tw(profil));
+    var r=parseFloat(ipe_r(profil));
+    var h0=parseFloat(ipe_h0(profil));
+    var lf=parseFloat(ipe_lf(profil));
+    var lw=parseFloat(ipe_lw(profil));
+    var its=parseFloat(ipe_its(profil));
+    var a=parseFloat(ipe_a(profil));
+    var ix=parseFloat(ipe_ix(profil));
+    var iy=parseFloat(ipe_iy(profil));
+    var wex=parseFloat(ipe_wex(profil));
+    var wey=parseFloat(ipe_wey(profil));
+    var wpx=parseFloat(ipe_wpx(profil));
+    var wpy=parseFloat(ipe_wpy(profil));
+    var rx=parseFloat(ipe_rx(profil));
+    var ry=parseFloat(ipe_ry(profil));
+    var j=parseFloat(ipe_j(profil));
+    var cw=parseFloat(ipe_cw(profil));}
+    
+    if (profiltype=="ipn"){
+    var m=parseFloat(ipn_m(profil));
+    var d=parseFloat(ipn_d(profil));
+    var h=parseFloat(ipn_h(profil));
+    var bf=parseFloat(ipn_bf(profil));
+    var tf=parseFloat(ipn_tf(profil));
+    var tw=parseFloat(ipn_tw(profil));
+    var r=parseFloat(ipn_r(profil));
+    var h0=parseFloat(ipn_h0(profil));
+    var lf=parseFloat(ipn_lf(profil));
+    var lw=parseFloat(ipn_lw(profil));
+    var its=parseFloat(ipn_its(profil));
+    var a=parseFloat(ipn_a(profil));
+    var ix=parseFloat(ipn_ix(profil));
+    var iy=parseFloat(ipn_iy(profil));
+    var wex=parseFloat(ipn_wex(profil));
+    var wey=parseFloat(ipn_wey(profil));
+    var wpx=parseFloat(ipn_wpx(profil));
+    var wpy=parseFloat(ipn_wpy(profil));
+    var rx=parseFloat(ipn_rx(profil));
+    var ry=parseFloat(ipn_ry(profil));
+    var j=parseFloat(ipn_j(profil));
+    var cw=parseFloat(ipn_cw(profil));}
+    
+    if (profiltype=="upe"){
+    var m=parseFloat(upe_m(profil));
+    var d=parseFloat(upe_d(profil));
+    var h=parseFloat(upe_h(profil));
+    var bf=parseFloat(upe_bf(profil));
+    var tf=parseFloat(upe_tf(profil));
+    var tw=parseFloat(upe_tw(profil));
+    var r=parseFloat(upe_r(profil));
+    var h0=parseFloat(upe_h0(profil));
+    var lf=parseFloat(upe_lf(profil));
+    var lw=parseFloat(upe_lw(profil));
+    var its=parseFloat(upe_its(profil));
+    var a=parseFloat(upe_a(profil));
+    var ix=parseFloat(upe_ix(profil));
+    var iy=parseFloat(upe_iy(profil));
+    var wex=parseFloat(upe_wex(profil));
+    var wey=parseFloat(upe_wey(profil));
+    var wpx=parseFloat(upe_wpx(profil));
+    var wpy=parseFloat(upe_wpy(profil));
+    var rx=parseFloat(upe_rx(profil));
+    var ry=parseFloat(upe_ry(profil));
+    var j=parseFloat(upe_j(profil));
+    var cw=parseFloat(upe_cw(profil));}
+    
+    if (profiltype=="upn"){
+    var m=parseFloat(upn_m(profil));
+    var d=parseFloat(upn_d(profil));
+    var h=parseFloat(upn_h(profil));
+    var bf=parseFloat(upn_bf(profil));
+    var tf=parseFloat(upn_tf(profil));
+    var tw=parseFloat(upn_tw(profil));
+    var r=parseFloat(upn_r(profil));
+    var h0=parseFloat(upn_h0(profil));
+    var lf=parseFloat(upn_lf(profil));
+    var lw=parseFloat(upn_lw(profil));
+    var its=parseFloat(upn_its(profil));
+    var a=parseFloat(upn_a(profil));
+    var ix=parseFloat(upn_ix(profil));
+    var iy=parseFloat(upn_iy(profil));
+    var wex=parseFloat(upn_wex(profil));
+    var wey=parseFloat(upn_wey(profil));
+    var wpx=parseFloat(upn_wpx(profil));
+    var wpy=parseFloat(upn_wpy(profil));
+    var rx=parseFloat(upn_rx(profil));
+    var ry=parseFloat(upn_ry(profil));
+    var j=parseFloat(upn_j(profil));
+    var cw=parseFloat(upn_cw(profil));}
+    
+
+
+    
+    
+
+
+
+
+    var mesnet=document.getElementById("mesnet").value;
+    var length = parseFloat(document.getElementById("length").value);
+    var loadG=parseFloat(document.getElementById("loadG").value)+m;
+    var loadQ=parseFloat(document.getElementById("loadQ").value);
+    var loadS=parseFloat(document.getElementById("loadS").value);
+    
+    var stage = new Konva.Stage({
+    container: 'canvas',
+    width: width,
+    height: 200,
+    });
+    
+    var layer = new Konva.Layer();
+    
+    var beam = new Konva.Rect({
+    x: stx,
+    y: 95,
+    width: width*0.75,
+    height: 10,
+    fill: 'red',
+    stroke: 'black',
+    strokeWidth: 2,
+    });
+    layer.add(beam);
+    
+    var shapeg = new Konva.Rect({
+    x: stx,
+    y: 65,
+    width: width*0.75,
+    height: 10,
+    fill: 'gray',
+    stroke: 'gray',
+    strokeWidth: 2,
+    });
+    layer.add(shapeg);
+    
+    var shapegtext1 = new Konva.Text({
+    x: stx-15,
+    y: 65,
+    fontSize: 10,
+    Text: 'G :',
+    fill: 'gray',
+    stroke: 'gray',
+    strokeWidth: 1,
+    });
+    layer.add(shapegtext1);
+    
+    
+    var pureg=loadG-m;
+ 
+    var shapegtext2 = new Konva.Text({
+    x: stx+5,
+    y: 65,
+    fontSize: 10,
+    Text: pureg.toFixed(3)+' kN/m + '+m.toFixed(3)+' kN/m',
+    fill: 'white',
+    stroke: 'white',
+    strokeWidth: 1,
+    });
+    layer.add(shapegtext2);
+    
+    var shapeq = new Konva.Rect({
+    x: stx,
+    y: 40,
+    width: width*0.75,
+    height: 10,
+    fill: 'black',
+    stroke: 'black',
+    strokeWidth: 2,
+    });
+    layer.add(shapeq);
+    
+    var shapeqtext1 = new Konva.Text({
+    x: stx-15,
+    y: 40,
+    fontSize: 10,
+    Text: 'Q :',
+    fill: 'black',
+    stroke: 'black',
+    strokeWidth: 1,
+    });
+    layer.add(shapeqtext1);
+    
+    var shapeqtext2 = new Konva.Text({
+    x: stx+5,
+    y: 40,
+    fontSize: 10,
+    Text: loadQ.toFixed(3)+' kN/m',
+    fill: 'white',
+    stroke: 'white',
+    strokeWidth: 1,
+    });
+    layer.add(shapeqtext2);
+	
+	var shapes = new Konva.Rect({
+	x: stx,
+	y: 15,
+	width: width*0.75,
+	height: 10,
+	fill: 'blue',
+	stroke: 'blue',
+	strokeWidth: 2,
+	});
+	layer.add(shapes);
+	
+	var shapestext1 = new Konva.Text({
+	x: stx-15,
+	y: 15,
+	fontSize: 10,
+	Text: 'S :',
+	fill: 'blue',
+	stroke: 'blue',
+	strokeWidth: 1,
+	});
+	layer.add(shapestext1);
+	
+	var shapestext2 = new Konva.Text({
+	x: stx+5,
+	y: 15,
+	fontSize: 10,
+	Text: loadS.toFixed(3)+' kN/m',
+	fill: 'white',
+	stroke: 'white',
+	strokeWidth: 1,
+	});
+	layer.add(shapestext2);
+    
+    var dimline1=new Konva.Line({
+    points:[stx,160,endx,160],
+    stroke:'black',
+    tension:1,
+    });
+    layer.add(dimline1);
+    
+	var dimline2=new Konva.Line({
+	points:[stx+5,155,stx-5,165],
+	stroke:'black',
+	tension:1,
+	});
+	layer.add(dimline2);
+	
+	var dimline3=new Konva.Line({
+	points:[endx+5,155,endx-5,165],
+	stroke:'black',
+	tension:1,
+	});
+	layer.add(dimline3);
+	
+	var dimtext=new Konva.Text({
+	x:0.5*width-15,
+	y:165,
+	fontSize:15,
+	text:length+' m',
+	});
+	layer.add(dimtext);
+	
+	var profiletext=new Konva.Text({
+	x:0.5*width-30,
+	y:110,
+	fontSize:15,
+	text:document.getElementById("profil").value,
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer.add(profiletext);
+    
+    if (mesnet=="pp") {
+	    var sup1= new Konva.RegularPolygon({
+	    x:stx,
+	    y:115,
+	    sides:3,
+	    radius:10,
+	    fill:'black',
+	    });
+	    layer.add(sup1);
+	    
+	    var sup2= new Konva.RegularPolygon({
+	    x:endx,
+	    y:115,
+	    sides:3,
+	    radius:10,
+	    fill:'black',
+	    });
+	    layer.add(sup2);
+    };
+    
+    if (mesnet=="ff"){
+		var sup1= new Konva.Rect({
+		x:stx-5,
+		y:85,
+		width:5,
+		height:30,
+		fill:'black',
+		});
+		layer.add(sup1);
+		
+		var sup2= new Konva.Rect({
+		x:endx,
+		y:85,
+		width:5,
+		height:30,
+		fill:'black',
+		});
+		layer.add(sup2);
+		
+    };
+    
+    if (mesnet=="pf") {
+    
+    var sup1= new Konva.RegularPolygon({
+    x:stx,
+    y:115,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    layer.add(sup1);
+    
+    var sup2= new Konva.Rect({
+    x:endx,
+    y:85,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    layer.add(sup2);
+    
+    };
+    
+    
+    if (mesnet=="konsol") {
+    
+    var sup2= new Konva.Rect({
+    x:endx,
+    y:85,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    layer.add(sup2);
+    
+    };
+    
+    		
+    
+    
+    // add the layer to the stage
+    stage.add(layer);
+    
+    
+    //START MOMENT
+
+    function mxKom1(x) {
+    var value=mx_kom1(x,mesnet,length,loadG,loadQ,loadS);
+    return value;
+    };
+    
+    function mxKom2(x) {
+    var value=mx_kom2(x,mesnet,length,loadG,loadQ,loadS);
+    return value;
+    };
+    
+    function mxKom3(x) {
+    var value=mx_kom3(x,mesnet,length,loadG,loadQ,loadS);
+    return value;
+    };
+    
+    if (mesnet=="pp") {
+    var mmax_kom1=mxKom1(0.5*length);
+    var mmax_kom2=mxKom2(0.5*length);
+    var mmax_kom3=mxKom3(0.5*length);
+    };
+    
+    if (mesnet=="pf") {
+    var mmax_kom1=mxKom1(length);
+    var mmax_kom2=mxKom2(length);
+    var mmax_kom3=mxKom3(length);
+    };
+    
+    if (mesnet=="ff") {
+    var mmax_kom1=mxKom1(0);
+    var mmax_kom2=mxKom2(0);
+    var mmax_kom3=mxKom3(0);
+    };
+    
+    if (mesnet=="konsol") {
+    var mmax_kom1=mxKom1(length);
+    var mmax_kom2=mxKom2(length);
+    var mmax_kom3=mxKom3(length);
+    };
+
+
+    var ym=125;
+    var p0=stx;
+    var p1=stx+1*(endx-stx)/10;
+    var p2=stx+2*(endx-stx)/10;
+    var p3=stx+3*(endx-stx)/10;
+    var p4=stx+4*(endx-stx)/10;
+    var p5=stx+5*(endx-stx)/10;
+    var p6=stx+6*(endx-stx)/10;
+    var p7=stx+7*(endx-stx)/10;
+    var p8=stx+8*(endx-stx)/10;
+    var p9=stx+9*(endx-stx)/10;
+    var p10=stx+10*(endx-stx)/10;
+    
+    if (mesnet=="pp"){
+    var y0_kom1=ym+40*mxKom1(0)/mmax_kom1;
+    var y1_kom1=ym+40*mxKom1(0.1*length)/mmax_kom1;
+    var y2_kom1=ym+40*mxKom1(0.2*length)/mmax_kom1;
+    var y3_kom1=ym+40*mxKom1(0.3*length)/mmax_kom1;
+    var y4_kom1=ym+40*mxKom1(0.4*length)/mmax_kom1;
+    var y5_kom1=ym+40*mxKom1(0.5*length)/mmax_kom1;
+    var y6_kom1=ym+40*mxKom1(0.6*length)/mmax_kom1;
+    var y7_kom1=ym+40*mxKom1(0.7*length)/mmax_kom1;
+    var y8_kom1=ym+40*mxKom1(0.8*length)/mmax_kom1;
+    var y9_kom1=ym+40*mxKom1(0.9*length)/mmax_kom1;
+    var y10_kom1=ym+40*mxKom1(length)/mmax_kom1;
+    };
+   
+    if (mesnet=="pf"){
+    var y0_kom1=ym-40*mxKom1(0)/mmax_kom1;
+    var y1_kom1=ym-40*mxKom1(0.1*length)/mmax_kom1;
+    var y2_kom1=ym-40*mxKom1(0.2*length)/mmax_kom1;
+    var y3_kom1=ym-40*mxKom1(0.3*length)/mmax_kom1;
+    var y4_kom1=ym-40*mxKom1(0.4*length)/mmax_kom1;
+    var y5_kom1=ym-40*mxKom1(0.5*length)/mmax_kom1;
+    var y6_kom1=ym-40*mxKom1(0.6*length)/mmax_kom1;
+    var y7_kom1=ym-40*mxKom1(0.7*length)/mmax_kom1;
+    var y8_kom1=ym-40*mxKom1(0.8*length)/mmax_kom1;
+    var y9_kom1=ym-40*mxKom1(0.9*length)/mmax_kom1;
+    var y10_kom1=ym-40*mxKom1(length)/mmax_kom1;
+    };
+    
+    if (mesnet=="ff"){
+    var y0_kom1=ym-40*mxKom1(0)/mmax_kom1;
+    var y1_kom1=ym-40*mxKom1(0.1*length)/mmax_kom1;
+    var y2_kom1=ym-40*mxKom1(0.2*length)/mmax_kom1;
+    var y3_kom1=ym-40*mxKom1(0.3*length)/mmax_kom1;
+    var y4_kom1=ym-40*mxKom1(0.4*length)/mmax_kom1;
+    var y5_kom1=ym-40*mxKom1(0.5*length)/mmax_kom1;
+    var y6_kom1=ym-40*mxKom1(0.6*length)/mmax_kom1;
+    var y7_kom1=ym-40*mxKom1(0.7*length)/mmax_kom1;
+    var y8_kom1=ym-40*mxKom1(0.8*length)/mmax_kom1;
+    var y9_kom1=ym-40*mxKom1(0.9*length)/mmax_kom1;
+    var y10_kom1=ym-40*mxKom1(length)/mmax_kom1;
+    };
+    
+    if (mesnet=="konsol"){
+    var y0_kom1=ym-40*mxKom1(0)/mmax_kom1;
+    var y1_kom1=ym-40*mxKom1(0.1*length)/mmax_kom1;
+    var y2_kom1=ym-40*mxKom1(0.2*length)/mmax_kom1;
+    var y3_kom1=ym-40*mxKom1(0.3*length)/mmax_kom1;
+    var y4_kom1=ym-40*mxKom1(0.4*length)/mmax_kom1;
+    var y5_kom1=ym-40*mxKom1(0.5*length)/mmax_kom1;
+    var y6_kom1=ym-40*mxKom1(0.6*length)/mmax_kom1;
+    var y7_kom1=ym-40*mxKom1(0.7*length)/mmax_kom1;
+    var y8_kom1=ym-40*mxKom1(0.8*length)/mmax_kom1;
+    var y9_kom1=ym-40*mxKom1(0.9*length)/mmax_kom1;
+    var y10_kom1=ym-40*mxKom1(length)/mmax_kom1;
+    };
+    
+    var stage2 = new Konva.Stage({
+    container: 'canvas2',
+    width: width,
+    height: 200,
+    });
+    
+    var layer2 = new Konva.Layer();
+    
+    var beam2 = new Konva.Line({
+    points:[stx,ym,endx,ym],
+    stroke: 'black',
+    strokeWidth: 3,
+    });
+    layer2.add(beam2);
+    
+    var m_kom1= new Konva.Line({
+    points:[stx,ym,p0,y0_kom1,p1,y1_kom1,p2,y2_kom1,p3,y3_kom1,p4,y4_kom1,p5,y5_kom1,p6,y6_kom1,p7,y7_kom1,p8,y8_kom1,p9,y9_kom1,p10,y10_kom1,endx,ym],
+    stroke: 'red',
+    fill:'green',
+    strokeWidth: 2,
+    });
+    layer2.add(m_kom1);
+    
+    var text1_kom1=new Konva.Text({
+    x:10,
+    y:10,
+    fontSize:10,
+    text:'Mmax = '+mmax_kom1.toFixed(3)+' kNm (Kombinasyon : 1.4G)',
+    fill:'red',
+    stroke:'black',
+    strokeWidth:0.5,
+    });
+    layer2.add(text1_kom1);
+    
+    var text1_kom2=new Konva.Text({
+    x:10,
+    y:30,
+    fontSize:10,
+    text:'Mmax = '+mmax_kom2.toFixed(3)+' kNm (Kombinasyon : 1.2G+1.6Q+0.5S)',
+    fill:'red',
+    stroke:'black',
+    strokeWidth:0.5,
+    });
+    layer2.add(text1_kom2);
+
+	var text1_kom3=new Konva.Text({
+	x:10,
+	y:50,
+	fontSize:10,
+	text:'Mmax = '+mmax_kom3.toFixed(3)+' kNm (Kombinasyon : 1.2G+1.6S+Q)',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer2.add(text1_kom3);
+    
+   if (mesnet=="pp") {
+   	    var sup1_kom1= new Konva.RegularPolygon({
+   	    x:stx,
+   	    y:ym+10,
+   	    sides:3,
+   	    radius:10,
+   	    fill:'black',
+   	    });
+   	    layer2.add(sup1_kom1);
+   	    
+   	    var sup2_kom1= new Konva.RegularPolygon({
+   	    x:endx,
+   	    y:ym+10,
+   	    sides:3,
+   	    radius:10,
+   	    fill:'black',
+   	    });
+   	    layer2.add(sup2_kom1);
+   };
+   
+   if (mesnet=="ff"){
+   		var sup1_kom1= new Konva.Rect({
+   		x:stx-5,
+   		y:ym-15,
+   		width:5,
+   		height:30,
+   		fill:'black',
+   		});
+   		layer2.add(sup1_kom1);
+   		
+   		var sup2_kom1= new Konva.Rect({
+   		x:endx,
+   		y:ym-15,
+   		width:5,
+   		height:30,
+   		fill:'black',
+   		});
+   		layer2.add(sup2_kom1);
+   		
+   };
+   
+   if (mesnet=="pf") {
+   
+   var sup1_kom1= new Konva.RegularPolygon({
+   x:stx,
+   y:ym+10,
+   sides:3,
+   radius:10,
+   fill:'black',
+   });
+   layer2.add(sup1_kom1);
+   
+   var sup2_kom1= new Konva.Rect({
+   x:endx,
+   y:ym-15,
+   width:5,
+   height:30,
+   fill:'black',
+   });
+   layer2.add(sup2_kom1);
+   
+   };
+   
+   
+   if (mesnet=="konsol") {
+   
+   var sup2_kom1= new Konva.Rect({
+   x:endx,
+   y:ym-15,
+   width:5,
+   height:30,
+   fill:'black',
+   });
+   layer2.add(sup2_kom1);
+   
+   };
+   
+        stage2.add(layer2);
+
+// END MOMENT
+
+// START SHEAR
+
+function vxKom1(x) {
+var value=vx_kom1(x,mesnet,length,loadG,loadQ,loadS);
+return value;
+};
+
+function vxKom2(x) {
+var value=vx_kom2(x,mesnet,length,loadG,loadQ,loadS);
+return value;
+};
+
+function vxKom3(x) {
+var value=vx_kom3(x,mesnet,length,loadG,loadQ,loadS);
+return value;
+};
+
+if (mesnet=="pp") {
+var vmax_kom1=vxKom1(0);
+var vmax_kom2=vxKom2(0);
+var vmax_kom3=vxKom3(0);
+};
+
+if (mesnet=="pf") {
+var vmax_kom1=vxKom1(length);
+var vmax_kom2=vxKom2(length);
+var vmax_kom3=vxKom3(length);
+};
+
+if (mesnet=="ff") {
+var vmax_kom1=vxKom1(0);
+var vmax_kom2=vxKom2(0);
+var vmax_kom3=vxKom3(0);
+};
+
+if (mesnet=="konsol") {
+var vmax_kom1=vxKom1(length);
+var vmax_kom2=vxKom2(length);
+var vmax_kom3=vxKom3(length);
+};
+
+
+var ym=125;
+var p0=stx;
+var p1=stx+1*(endx-stx)/10;
+var p2=stx+2*(endx-stx)/10;
+var p3=stx+3*(endx-stx)/10;
+var p4=stx+4*(endx-stx)/10;
+var p5=stx+5*(endx-stx)/10;
+var p6=stx+6*(endx-stx)/10;
+var p7=stx+7*(endx-stx)/10;
+var p8=stx+8*(endx-stx)/10;
+var p9=stx+9*(endx-stx)/10;
+var p10=stx+10*(endx-stx)/10;
+
+if (mesnet=="pp"){
+var y0v_kom1=ym-40*vxKom1(0)/vmax_kom1;
+var y1v_kom1=ym-40*vxKom1(0.1*length)/vmax_kom1;
+var y2v_kom1=ym-40*vxKom1(0.2*length)/vmax_kom1;
+var y3v_kom1=ym-40*vxKom1(0.3*length)/vmax_kom1;
+var y4v_kom1=ym-40*vxKom1(0.4*length)/vmax_kom1;
+var y5v_kom1=ym-40*vxKom1(0.5*length)/vmax_kom1;
+var y6v_kom1=ym-40*vxKom1(0.6*length)/vmax_kom1;
+var y7v_kom1=ym-40*vxKom1(0.7*length)/vmax_kom1;
+var y8v_kom1=ym-40*vxKom1(0.8*length)/vmax_kom1;
+var y9v_kom1=ym-40*vxKom1(0.9*length)/vmax_kom1;
+var y10v_kom1=ym-40*vxKom1(length)/vmax_kom1;
+};
+
+if (mesnet=="pf"){
+var y0v_kom1=ym+40*vxKom1(0)/vmax_kom1;
+var y1v_kom1=ym+40*vxKom1(0.1*length)/vmax_kom1;
+var y2v_kom1=ym+40*vxKom1(0.2*length)/vmax_kom1;
+var y3v_kom1=ym+40*vxKom1(0.3*length)/vmax_kom1;
+var y4v_kom1=ym+40*vxKom1(0.4*length)/vmax_kom1;
+var y5v_kom1=ym+40*vxKom1(0.5*length)/vmax_kom1;
+var y6v_kom1=ym+40*vxKom1(0.6*length)/vmax_kom1;
+var y7v_kom1=ym+40*vxKom1(0.7*length)/vmax_kom1;
+var y8v_kom1=ym+40*vxKom1(0.8*length)/vmax_kom1;
+var y9v_kom1=ym+40*vxKom1(0.9*length)/vmax_kom1;
+var y10v_kom1=ym+40*vxKom1(length)/vmax_kom1;
+};
+
+if (mesnet=="ff"){
+var y0v_kom1=ym-40*vxKom1(0)/vmax_kom1;
+var y1v_kom1=ym-40*vxKom1(0.1*length)/vmax_kom1;
+var y2v_kom1=ym-40**vxKom1(0.2*length)/vmax_kom1;
+var y3v_kom1=ym-40*vxKom1(0.3*length)/vmax_kom1;
+var y4v_kom1=ym-40*vxKom1(0.4*length)/vmax_kom1;
+var y5v_kom1=ym-40*vxKom1(0.5*length)/vmax_kom1;
+var y6v_kom1=ym-40*vxKom1(0.6*length)/vmax_kom1;
+var y7v_kom1=ym-40*vxKom1(0.7*length)/vmax_kom1;
+var y8v_kom1=ym-40*vxKom1(0.8*length)/vmax_kom1;
+var y9v_kom1=ym-40*vxKom1(0.9*length)/vmax_kom1;
+var y10v_kom1=ym-40*vxKom1(length)/vmax_kom1;
+};
+
+if (mesnet=="konsol"){
+var y0v_kom1=ym-40*vxKom1(0)/vmax_kom1;
+var y1v_kom1=ym-40*vxKom1(0.1*length)/vmax_kom1;
+var y2v_kom1=ym-40*vxKom1(0.2*length)/vmax_kom1;
+var y3v_kom1=ym-40*vxKom1(0.3*length)/vmax_kom1;
+var y4v_kom1=ym-40*vxKom1(0.4*length)/vmax_kom1;
+var y5v_kom1=ym-40*vxKom1(0.5*length)/vmax_kom1;
+var y6v_kom1=ym-40*vxKom1(0.6*length)/vmax_kom1;
+var y7v_kom1=ym-40*vxKom1(0.7*length)/vmax_kom1;
+var y8v_kom1=ym-40*vxKom1(0.8*length)/vmax_kom1;
+var y9v_kom1=ym-40*vxKom1(0.9*length)/vmax_kom1;
+var y10v_kom1=ym-40*vxKom1(length)/vmax_kom1;
+};
+
+var stage3 = new Konva.Stage({
+container: 'canvas3',
+width: width,
+height: 200,
+});
+
+var layer3 = new Konva.Layer();
+
+var beam3 = new Konva.Line({
+points:[stx,ym,endx,ym],
+stroke: 'black',
+strokeWidth: 3,
+});
+layer3.add(beam3);
+
+var v_kom1= new Konva.Line({
+points:[stx,ym,p0,y0v_kom1,p1,y1v_kom1,p2,y2v_kom1,p3,y3v_kom1,p4,y4v_kom1,p5,y5v_kom1,p6,y6v_kom1,p7,y7v_kom1,p8,y8v_kom1,p9,y9v_kom1,p10,y10v_kom1,endx,ym],
+stroke: 'red',
+fill:'green',
+strokeWidth: 2,
+});
+layer3.add(v_kom1);
+
+var text1_kom1v=new Konva.Text({
+x:10,
+y:10,
+fontSize:10,
+text:'Vmax = '+Math.abs(vmax_kom1).toFixed(3)+' kN (Kombinasyon : 1.4G)',
+fill:'red',
+stroke:'black',
+strokeWidth:0.5,
+});
+layer3.add(text1_kom1v);
+
+var text1_kom2v=new Konva.Text({
+x:10,
+y:30,
+fontSize:10,
+text:'Vmax = '+Math.abs(vmax_kom2).toFixed(3)+' kN (Kombinasyon : 1.2G+1.6Q+0.5S)',
+fill:'red',
+stroke:'black',
+strokeWidth:0.5,
+});
+layer3.add(text1_kom2v);
+
+	var text1_kom3v=new Konva.Text({
+	x:10,
+	y:50,
+	fontSize:10,
+	text:'Vmax = '+Math.abs(vmax_kom3).toFixed(3)+' kN (Kombinasyon : 1.2G+1.6S+Q)',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer3.add(text1_kom3v);
+
+   if (mesnet=="pp") {
+   	    var sup1_kom1v= new Konva.RegularPolygon({
+   	    x:stx,
+   	    y:ym+10,
+   	    sides:3,
+   	    radius:10,
+   	    fill:'black',
+   	    });
+   	    layer3.add(sup1_kom1v);
+   	    
+   	    var sup2_kom1v= new Konva.RegularPolygon({
+   	    x:endx,
+   	    y:ym+10,
+   	    sides:3,
+   	    radius:10,
+   	    fill:'black',
+   	    });
+   	    layer3.add(sup2_kom1v);
+   };
+   
+   if (mesnet=="ff"){
+   		var sup1_kom1v= new Konva.Rect({
+   		x:stx-5,
+   		y:ym-15,
+   		width:5,
+   		height:30,
+   		fill:'black',
+   		});
+   		layer3.add(sup1_kom1v);
+   		
+   		var sup2_kom1v= new Konva.Rect({
+   		x:endx,
+   		y:ym-15,
+   		width:5,
+   		height:30,
+   		fill:'black',
+   		});
+   		layer3.add(sup2_kom1v);
+   		
+   };
+   
+   if (mesnet=="pf") {
+   
+   var sup1_kom1v= new Konva.RegularPolygon({
+   x:stx,
+   y:ym+10,
+   sides:3,
+   radius:10,
+   fill:'black',
+   });
+   layer3.add(sup1_kom1v);
+   
+   var sup2_kom1v= new Konva.Rect({
+   x:endx,
+   y:ym-15,
+   width:5,
+   height:30,
+   fill:'black',
+   });
+   layer3.add(sup2_kom1v);
+   
+   };
+   
+   
+   if (mesnet=="konsol") {
+   
+   var sup2_kom1v= new Konva.Rect({
+   x:endx,
+   y:ym-15,
+   width:5,
+   height:30,
+   fill:'black',
+   });
+   layer3.add(sup2_kom1v);
+   
+   };
+   
+    stage3.add(layer3);
+
+// END SHEAR
+    
+    //DEFLECTION GRAPH
+    
+    function d_kom1(x) {
+    var value=def_kom1(x,mesnet,length,loadG,loadQ,loadS,e,ix);
+    return value;
+    };
+    
+    function d_kom2(x) {
+    var value=def_kom2(x,mesnet,length,loadG,loadQ,loadS,e,ix);
+    return value;
+    };
+    
+    function d_kom3(x) {
+    var value=def_kom3(x,mesnet,length,loadG,loadQ,loadS,e,ix);
+    return value;
+    };
+    
+    function d_kom4(x) {
+    var value=def_kom4(x,mesnet,length,loadG,loadQ,loadS,e,ix);
+    return value;
+    };
+   
+    if (mesnet=="pp") {
+    var dmax_kom1=d_kom1(0.5*length);
+    var dmax_kom2=d_kom2(0.5*length);
+    var dmax_kom3=d_kom3(0.5*length);
+    var dmax_kom4=d_kom4(0.5*length);
+    };
+    
+    if (mesnet=="pf") {
+	var dmax_kom1=d_kom1(0.4215*length);
+	var dmax_kom2=d_kom2(0.4215*length);
+	var dmax_kom3=d_kom3(0.4215*length);
+	var dmax_kom4=d_kom4(0.4215*length);
+    };
+    
+    if (mesnet=="ff") {
+	var dmax_kom1=d_kom1(0.5*length);
+	var dmax_kom2=d_kom2(0.5*length);
+	var dmax_kom3=d_kom3(0.5*length);
+	var dmax_kom4=d_kom4(0.5*length);
+    };
+    
+    if (mesnet=="konsol") {
+	var dmax_kom1=d_kom1(0);
+	var dmax_kom2=d_kom2(0);
+	var dmax_kom3=d_kom3(0);
+	var dmax_kom4=d_kom4(0);
+    };
+
+    
+    var stage4 = new Konva.Stage({
+    container: 'canvas4',
+    width: width,
+    height: 450,
+    });
+    
+    var layer4 = new Konva.Layer();
+    
+    var beam4 = new Konva.Line({
+    points:[stx,50,endx,50],
+    stroke: 'gray',
+    strokeWidth: 0,
+    });
+    layer4.add(beam4);
+    
+    var beam5 = new Konva.Line({
+    points:[stx,150,endx,150],
+    stroke: 'gray',
+    strokeWidth: 0,
+    });
+    layer4.add(beam5);
+    
+    var beam6 = new Konva.Line({
+    points:[stx,250,endx,250],
+    stroke: 'gray',
+    strokeWidth: 0,
+    });
+    layer4.add(beam6);
+    
+    var beam7 = new Konva.Line({
+    points:[stx,350,endx,350],
+    stroke: 'gray',
+    strokeWidth: 0,
+    });
+    layer4.add(beam7);
+    
+    if (mesnet=="pp") {
+    var sup1_def1= new Konva.RegularPolygon({
+    x:stx,
+    y:60,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    var sup1_def2= new Konva.RegularPolygon({
+    x:stx,
+    y:160,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    var sup1_def3= new Konva.RegularPolygon({
+    x:stx,
+    y:260,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    var sup1_def4= new Konva.RegularPolygon({
+    x:stx,
+    y:360,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    layer4.add(sup1_def1);
+    layer4.add(sup1_def2);
+    layer4.add(sup1_def3);
+    layer4.add(sup1_def4);
+            
+    var sup2_def1= new Konva.RegularPolygon({
+    x:endx,
+    y:60,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    var sup2_def2= new Konva.RegularPolygon({
+    x:endx,
+    y:160,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    var sup2_def3= new Konva.RegularPolygon({
+    x:endx,
+    y:260,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    var sup2_def4= new Konva.RegularPolygon({
+    x:endx,
+    y:360,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    layer4.add(sup2_def1);
+    layer4.add(sup2_def2);
+    layer4.add(sup2_def3);
+    layer4.add(sup2_def4);
+    };
+    
+    if (mesnet=="ff"){
+    var sup1_def1= new Konva.Rect({
+    x:stx-5,
+    y:35,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup1_def2= new Konva.Rect({
+    x:stx-5,
+    y:135,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup1_def3= new Konva.Rect({
+    x:stx-5,
+    y:235,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup1_def4= new Konva.Rect({
+    x:stx-5,
+    y:335,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    layer4.add(sup1_def1);
+    layer4.add(sup1_def2);
+    layer4.add(sup1_def3);
+    layer4.add(sup1_def4);
+    
+    var sup2_def1= new Konva.Rect({
+    x:endx,
+    y:35,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup2_def2= new Konva.Rect({
+    x:endx,
+    y:135,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup2_def3= new Konva.Rect({
+    x:endx,
+    y:235,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup2_def4= new Konva.Rect({
+    x:endx,
+    y:335,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+	layer4.add(sup2_def1);
+	layer4.add(sup2_def2);
+	layer4.add(sup2_def3);
+	layer4.add(sup2_def4);
+    
+    };
+    
+    if (mesnet=="pf") {
+    
+    var sup1_def1= new Konva.RegularPolygon({
+    x:stx,
+    y:60,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    var sup1_def2= new Konva.RegularPolygon({
+    x:stx,
+    y:160,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    var sup1_def3= new Konva.RegularPolygon({
+    x:stx,
+    y:260,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+    var sup1_def4= new Konva.RegularPolygon({
+    x:stx,
+    y:360,
+    sides:3,
+    radius:10,
+    fill:'black',
+    });
+	layer4.add(sup1_def1);
+	layer4.add(sup1_def2);
+	layer4.add(sup1_def3);
+	layer4.add(sup1_def4);
+    
+    var sup2_def1= new Konva.Rect({
+    x:endx,
+    y:35,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup2_def2= new Konva.Rect({
+    x:endx,
+    y:135,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup2_def3= new Konva.Rect({
+    x:endx,
+    y:235,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup2_def4= new Konva.Rect({
+    x:endx,
+    y:335,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+	layer4.add(sup2_def1);
+	layer4.add(sup2_def2);
+	layer4.add(sup2_def3);
+	layer4.add(sup2_def4);
+    
+    };
+    
+    
+    if (mesnet=="konsol") {
+    
+    var sup2_def1= new Konva.Rect({
+    x:endx,
+    y:35,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup2_def2= new Konva.Rect({
+    x:endx,
+    y:135,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+    var sup2_def3= new Konva.Rect({
+    x:endx,
+    y:235,
+    width:5,
+    height:30,
+    fill:'black',
+    });;
+    var sup2_def4= new Konva.Rect({
+    x:endx,
+    y:335,
+    width:5,
+    height:30,
+    fill:'black',
+    });
+	layer4.add(sup2_def1);
+	layer4.add(sup2_def2);
+	layer4.add(sup2_def3);
+	layer4.add(sup2_def4);
+    
+    };
+    
+    var std=stx;
+    var dmax=Math.max(dmax_kom1,dmax_kom2,dmax_kom3,dmax_kom4);
+    
+    var d0=std;
+	var d1=std+1*(endx-std)/10;
+	var d2=std+2*(endx-std)/10;
+	var d3=std+3*(endx-std)/10;
+	var d4=std+4*(endx-std)/10;
+	var d5=std+5*(endx-std)/10;
+	var d6=std+6*(endx-std)/10;
+	var d7=std+7*(endx-std)/10;
+	var d8=std+8*(endx-std)/10;
+	var d9=std+9*(endx-std)/10;
+	var d10=std+10*(endx-std)/10;
+	
+	var def1_0=d_kom1(0);
+	var def1_1=d_kom1(0.1*length);
+	var def1_2=d_kom1(0.2*length);
+	var def1_3=d_kom1(0.3*length);
+	var def1_4=d_kom1(0.4*length);
+	var def1_5=d_kom1(0.5*length);
+	var def1_6=d_kom1(0.6*length);
+	var def1_7=d_kom1(0.7*length);
+	var def1_8=d_kom1(0.8*length);
+	var def1_9=d_kom1(0.9*length);
+	var def1_10=d_kom1(length);
+	
+	var def2_0=d_kom2(0);
+	var def2_1=d_kom2(0.1*length);
+	var def2_2=d_kom2(0.2*length);
+	var def2_3=d_kom2(0.3*length);
+	var def2_4=d_kom2(0.4*length);
+	var def2_5=d_kom2(0.5*length);
+	var def2_6=d_kom2(0.6*length);
+	var def2_7=d_kom2(0.7*length);
+	var def2_8=d_kom2(0.8*length);
+	var def2_9=d_kom2(0.9*length);
+	var def2_10=d_kom2(length);
+	
+	var def3_0=d_kom3(0);
+	var def3_1=d_kom3(0.1*length);
+	var def3_2=d_kom3(0.2*length);
+	var def3_3=d_kom3(0.3*length);
+	var def3_4=d_kom3(0.4*length);
+	var def3_5=d_kom3(0.5*length);
+	var def3_6=d_kom3(0.6*length);
+	var def3_7=d_kom3(0.7*length);
+	var def3_8=d_kom3(0.8*length);
+	var def3_9=d_kom3(0.9*length);
+	var def3_10=d_kom3(length);
+	
+	var def4_0=d_kom4(0);
+	var def4_1=d_kom4(0.1*length);
+	var def4_2=d_kom4(0.2*length);
+	var def4_3=d_kom4(0.3*length);
+	var def4_4=d_kom4(0.4*length);
+	var def4_5=d_kom4(0.5*length);
+	var def4_6=d_kom4(0.6*length);
+	var def4_7=d_kom4(0.7*length);
+	var def4_8=d_kom4(0.8*length);
+	var def4_9=d_kom4(0.9*length);
+	var def4_10=d_kom4(length);
+	
+	var yd0_kom1=50+40*def1_0/dmax;
+	var yd1_kom1=50+40*def1_1/dmax;
+	var yd2_kom1=50+40*def1_2/dmax;
+	var yd3_kom1=50+40*def1_3/dmax;
+	var yd4_kom1=50+40*def1_4/dmax;
+	var yd5_kom1=50+40*def1_5/dmax;
+	var yd6_kom1=50+40*def1_6/dmax;
+	var yd7_kom1=50+40*def1_7/dmax;
+	var yd8_kom1=50+40*def1_8/dmax;
+	var yd9_kom1=50+40*def1_9/dmax;
+	var yd10_kom1=50+40*def1_10/dmax;
+	
+	var yd0_kom2=150+40*def2_0/dmax;
+	var yd1_kom2=150+40*def2_1/dmax;
+	var yd2_kom2=150+40*def2_2/dmax;
+	var yd3_kom2=150+40*def2_3/dmax;
+	var yd4_kom2=150+40*def2_4/dmax;
+	var yd5_kom2=150+40*def2_5/dmax;
+	var yd6_kom2=150+40*def2_6/dmax;
+	var yd7_kom2=150+40*def2_7/dmax;
+	var yd8_kom2=150+40*def2_8/dmax;
+	var yd9_kom2=150+40*def2_9/dmax;
+	var yd10_kom2=150+40*def2_10/dmax;
+	
+	var yd0_kom3=250+40*def3_0/dmax;
+	var yd1_kom3=250+40*def3_1/dmax;
+	var yd2_kom3=250+40*def3_2/dmax;
+	var yd3_kom3=250+40*def3_3/dmax;
+	var yd4_kom3=250+40*def3_4/dmax;
+	var yd5_kom3=250+40*def3_5/dmax;
+	var yd6_kom3=250+40*def3_6/dmax;
+	var yd7_kom3=250+40*def3_7/dmax;
+	var yd8_kom3=250+40*def3_8/dmax;
+	var yd9_kom3=250+40*def3_9/dmax;
+	var yd10_kom3=250+40*def3_10/dmax;
+	
+	var yd0_kom4=350+40*def4_0/dmax;
+	var yd1_kom4=350+40*def4_1/dmax;
+	var yd2_kom4=350+40*def4_2/dmax;
+	var yd3_kom4=350+40*def4_3/dmax;
+	var yd4_kom4=350+40*def4_4/dmax;
+	var yd5_kom4=350+40*def4_5/dmax;
+	var yd6_kom4=350+40*def4_6/dmax;
+	var yd7_kom4=350+40*def4_7/dmax;
+	var yd8_kom4=350+40*def4_8/dmax;
+	var yd9_kom4=350+40*def4_9/dmax;
+	var yd10_kom4=350+40*def4_10/dmax;
+	
+	var dg_kom1= new Konva.Line({
+	points:[d0,yd0_kom1,d1,yd1_kom1,d2,yd2_kom1,d3,yd3_kom1,d4,yd4_kom1,d5,yd5_kom1,d6,yd6_kom1,d7,yd7_kom1,d8,yd8_kom1,d9,yd9_kom1,d10,yd10_kom1],
+	stroke: 'red',
+	fill:'green',
+	strokeWidth: 2,
+	});
+	layer4.add(dg_kom1);
+	
+	var dg_kom2= new Konva.Line({
+	points:[d0,yd0_kom2,d1,yd1_kom2,d2,yd2_kom2,d3,yd3_kom2,d4,yd4_kom2,d5,yd5_kom2,d6,yd6_kom2,d7,yd7_kom2,d8,yd8_kom2,d9,yd9_kom2,d10,yd10_kom2],
+	stroke: 'red',
+	fill:'green',
+	strokeWidth: 2,
+	});
+	layer4.add(dg_kom2);
+	
+	var dg_kom3= new Konva.Line({
+	points:[d0,yd0_kom3,d1,yd1_kom3,d2,yd2_kom3,d3,yd3_kom3,d4,yd4_kom3,d5,yd5_kom3,d6,yd6_kom3,d7,yd7_kom3,d8,yd8_kom3,d9,yd9_kom3,d10,yd10_kom3],
+	stroke: 'red',
+	fill:'green',
+	strokeWidth: 2,
+	});
+	layer4.add(dg_kom3);
+	
+	var dg_kom4= new Konva.Line({
+	points:[d0,yd0_kom4,d1,yd1_kom4,d2,yd2_kom4,d3,yd3_kom4,d4,yd4_kom4,d5,yd5_kom4,d6,yd6_kom4,d7,yd7_kom4,d8,yd8_kom4,d9,yd9_kom4,d10,yd10_kom4],
+	stroke: 'red',
+	fill:'green',
+	strokeWidth: 2,
+	});
+	layer4.add(dg_kom4);
+	
+	var dtxtkom_1=new Konva.Text({
+	x:stx+(endx-stx)/2-20,
+	y:10,
+	fontSize:20,
+	text:'G+Q',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer4.add(dtxtkom_1);
+	
+	var dtxtmaxkom_1=new Konva.Text({
+	x:stx+(endx-stx)/2-40,
+	y:35,
+	fontSize:10,
+	text:'Δmax = '+dmax_kom1.toFixed(2)+'mm',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer4.add(dtxtmaxkom_1);
+	
+	var dtxtkom_2=new Konva.Text({
+	x:stx+(endx-stx)/2-32,
+	y:110,
+	fontSize:20,
+	text:'G+0.5S',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer4.add(dtxtkom_2);
+	
+	var dtxtmaxkom_2=new Konva.Text({
+	x:stx+(endx-stx)/2-40,
+	y:135,
+	fontSize:10,
+	text:'Δmax = '+dmax_kom2.toFixed(2)+'mm',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer4.add(dtxtmaxkom_2);
+	
+	var dtxtkom_3=new Konva.Text({
+	x:stx+(endx-stx)/2-5,
+	y:210,
+	fontSize:20,
+	text:'Q',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer4.add(dtxtkom_3);
+	
+	var dtxtmaxkom_3=new Konva.Text({
+	x:stx+(endx-stx)/2-40,
+	y:235,
+	fontSize:10,
+	text:'Δmax = '+dmax_kom3.toFixed(2)+'mm',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer4.add(dtxtmaxkom_3);
+
+	var dtxtkom_4=new Konva.Text({
+	x:stx+(endx-stx)/2-5,
+	y:310,
+	fontSize:20,
+	text:'S',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer4.add(dtxtkom_4);
+	
+	var dtxtmaxkom_4=new Konva.Text({
+	x:stx+(endx-stx)/2-40,
+	y:335,
+	fontSize:10,
+	text:'Δmax = '+dmax_kom4.toFixed(2)+'mm',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer4.add(dtxtmaxkom_4);
+	
+	var divline1=new Konva.Line({
+	points:[0,100,width,100],
+	stroke: 'gray',
+	strokeWidth: 1,
+	});
+	layer4.add(divline1);
+	
+	var divline2=new Konva.Line({
+	points:[0,200,width,200],
+	stroke: 'gray',
+	strokeWidth: 1,
+	});
+	layer4.add(divline2);
+	
+	var divline3=new Konva.Line({
+	points:[0,300,width,300],
+	stroke: 'gray',
+	strokeWidth: 1,
+	});
+	layer4.add(divline3);
+	
+    stage4.add(layer4);
+    
+}
+
+
+
+
+
+
+    </script>
+    
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</html>
