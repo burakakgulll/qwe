@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://unpkg.com/konva@8/konva.min.js"></script>
+<script src="js/konva.min.js"></script>
 <script src="lib/hea.js"></script>
 <script src="lib/heb.js"></script>
 <script src="lib/hem.js"></script>
@@ -227,7 +227,7 @@
     
     function cizim(){
     
-    
+   
     var profiltype=document.getElementById("profiltype").value;
     var profilsecim=document.getElementById("profil");
     var profil=document.getElementById("profil").value;
@@ -242,7 +242,8 @@
     if (profiltype=="ipn"){var options=ipnName;}
     if (profiltype=="upe"){var options=upeName;}
     if (profiltype=="upn"){var options=upnName;}
-    
+
+    if (profilsecim.length==0) {
     for(var i = 0; i < options.length; i++) {
     var opt = options[i];
     var el = document.createElement("option");
@@ -250,7 +251,9 @@
     el.value = opt;
     profilsecim.appendChild(el);
     };
-    
+    };
+
+
     var profil=document.getElementById("profil").value;
 
     if (profiltype=="hea"){
