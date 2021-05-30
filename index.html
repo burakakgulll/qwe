@@ -159,15 +159,15 @@
 	    
     </div>
     
-    <div class="mt-3 mb-3 mx-auto canvas" id="canvas2" style="border:1px solid black; width:min(90vw,405px); height:200px"></div>
+    <div class="mt-3 mb-3 mx-auto canvas" id="canvas2" style="border:1px solid black; width:min(90vw,405px); height:250px"></div>
     
     <div class="dropdown-divider"></div>
     
-    <div class="mt-3 mb-3 mx-auto canvas" id="canvas3" style="border:1px solid black; width:min(90vw,405px); height:200px"></div>
+    <div class="mt-3 mb-3 mx-auto canvas" id="canvas3" style="border:1px solid black; width:min(90vw,405px); height:250px"></div>
     
     <div class="dropdown-divider"></div>
     
-    <div class="mt-3 mb-3 mx-auto canvas" id="canvas4" style="border:1px solid black; width:min(90vw,405px); height:450px"></div>
+    <div class="mt-3 mb-3 mx-auto canvas" id="canvas4" style="border:1px solid black; width:min(90vw,405px); height:400px"></div>
     
     <div class="dropdown-divider"></div>
     
@@ -691,7 +691,6 @@
 	layer.add(dimline3);
 	
 	var diml=(length+' m').length;
-	console.log(diml);
 
 	var dimtext=new Konva.Text({
 	x:(stx+endx)/2-diml*6,
@@ -842,7 +841,7 @@
     };
 
 
-    var ym=125;
+    var ym=150;
     var p0=stx;
     var p1=stx+1*(endx-stx)/10;
     var p2=stx+2*(endx-stx)/10;
@@ -914,7 +913,7 @@
     var stage2 = new Konva.Stage({
     container: 'canvas2',
     width: width,
-    height: 200,
+    height: 250,
     });
     
     var layer2 = new Konva.Layer();
@@ -934,38 +933,132 @@
     });
     layer2.add(m_kom1);
     
+    var v_m= new Konva.Line({
+    points:[(stx+endx)/2,0,(stx+endx)/2,90],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer2.add(v_m);
+    
+    var v2_m= new Konva.Line({
+    points:[0,30,width,30],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer2.add(v2_m);
+    
+    var v3_m= new Konva.Line({
+    points:[0,60,width,60],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer2.add(v3_m);
+    
+    var v4_m= new Konva.Line({
+    points:[0,90,width,90],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer2.add(v4_m);
+    
     var text1_kom1=new Konva.Text({
-    x:10,
+    x:(stx+endx)/2+10,
     y:10,
-    fontSize:10,
-    text:'Mmax = '+mmax_kom1.toFixed(3)+' kNm (Kombinasyon : 1.4G)',
+    fontSize:15,
+    text:'M       = '+mmax_kom1.toFixed(3)+' kNm',
     fill:'red',
     stroke:'black',
     strokeWidth:0.5,
     });
     layer2.add(text1_kom1);
     
-    var text1_kom2=new Konva.Text({
+    var kom1_kom1=new Konva.Text({
     x:10,
-    y:30,
+    y:10,
+    fontSize:15,
+    text:'1.4G',
+    fill:'red',
+    stroke:'black',
+    strokeWidth:0.5,
+    });
+    layer2.add(kom1_kom1);
+    
+    var sub1_kom1=new Konva.Text({
+    x:(stx+endx)/2+23,
+    y:17,
     fontSize:10,
-    text:'Mmax = '+mmax_kom2.toFixed(3)+' kNm (Kombinasyon : 1.2G+1.6Q+0.5S)',
+    text:'maks',
+    fill:'red',
+    stroke:'black',
+    strokeWidth:0.25,
+    });
+    layer2.add(sub1_kom1);
+    
+    var text1_kom2=new Konva.Text({
+    x:(stx+endx)/2+10,
+    y:40,
+    fontSize:15,
+    text:'M       = '+mmax_kom2.toFixed(3)+' kNm',
     fill:'red',
     stroke:'black',
     strokeWidth:0.5,
     });
     layer2.add(text1_kom2);
+    
+    var kom2_kom2=new Konva.Text({
+    x:10,
+    y:40,
+    fontSize:15,
+    text:'1.2G+1.6Q+0.5S',
+    fill:'red',
+    stroke:'black',
+    strokeWidth:0.5,
+    });
+    layer2.add(kom2_kom2);
+    
+    var sub1_kom2=new Konva.Text({
+    x:(stx+endx)/2+23,
+    y:47,
+    fontSize:10,
+    text:'maks',
+    fill:'red',
+    stroke:'black',
+    strokeWidth:0.25,
+    });
+    layer2.add(sub1_kom2);
 
 	var text1_kom3=new Konva.Text({
-	x:10,
-	y:50,
-	fontSize:10,
-	text:'Mmax = '+mmax_kom3.toFixed(3)+' kNm (Kombinasyon : 1.2G+1.6S+Q)',
+	x:(stx+endx)/2+10,
+	y:70,
+	fontSize:15,
+	text:'M       = '+mmax_kom3.toFixed(3)+' kNm',
 	fill:'red',
 	stroke:'black',
 	strokeWidth:0.5,
 	});
 	layer2.add(text1_kom3);
+	
+	var sub1_kom3=new Konva.Text({
+	x:(stx+endx)/2+23,
+	y:77,
+	fontSize:10,
+	text:'maks',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.25,
+	});
+	layer2.add(sub1_kom3);
+	
+	var kom3_kom3=new Konva.Text({
+	x:10,
+	y:70,
+	fontSize:15,
+	text:'1.2G+1.6S+Q',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.5,
+	});
+	layer2.add(kom3_kom3);
     
    if (mesnet=="pp") {
    	    var sup1_kom1= new Konva.RegularPolygon({
@@ -1090,7 +1183,7 @@ var vmax_kom3=vxKom3(length);
 };
 
 
-var ym=125;
+
 var p0=stx;
 var p1=stx+1*(endx-stx)/10;
 var p2=stx+2*(endx-stx)/10;
@@ -1162,7 +1255,7 @@ var y10v_kom1=ym-40*vxKom1(length)/vmax_kom1;
 var stage3 = new Konva.Stage({
 container: 'canvas3',
 width: width,
-height: 200,
+height: 250,
 });
 
 var layer3 = new Konva.Layer();
@@ -1174,6 +1267,102 @@ strokeWidth: 3,
 });
 layer3.add(beam3);
 
+var vv_m= new Konva.Line({
+points:[(stx+endx)/2,0,(stx+endx)/2,90],
+stroke:'gray',
+strokeWidth:1,
+});
+layer3.add(vv_m);
+
+var vv2_m= new Konva.Line({
+points:[0,30,width,30],
+stroke:'gray',
+strokeWidth:1,
+});
+layer3.add(vv2_m);
+
+var vv3_m= new Konva.Line({
+points:[0,60,width,60],
+stroke:'gray',
+strokeWidth:1,
+});
+layer3.add(vv3_m);
+
+var vv4_m= new Konva.Line({
+points:[0,90,width,90],
+stroke:'gray',
+strokeWidth:1,
+});
+layer3.add(vv4_m);
+
+var vkom1_kom1=new Konva.Text({
+x:10,
+y:10,
+fontSize:15,
+text:'1.4G',
+fill:'red',
+stroke:'black',
+strokeWidth:0.5,
+});
+layer3.add(vkom1_kom1);
+
+var vkom2_kom2=new Konva.Text({
+x:10,
+y:40,
+fontSize:15,
+text:'1.2G+1.6Q+0.5S',
+fill:'red',
+stroke:'black',
+strokeWidth:0.5,
+});
+layer3.add(vkom2_kom2);
+
+var vkom3_kom3=new Konva.Text({
+x:10,
+y:70,
+fontSize:15,
+text:'1.2G+1.6S+Q',
+fill:'red',
+stroke:'black',
+strokeWidth:0.5,
+});
+layer3.add(vkom3_kom3);
+
+var vsub1_kom1=new Konva.Text({
+x:(stx+endx)/2+20,
+y:17,
+fontSize:10,
+text:'maks',
+fill:'red',
+stroke:'black',
+strokeWidth:0.25,
+});
+layer3.add(vsub1_kom1);
+
+var vsub1_kom2=new Konva.Text({
+x:(stx+endx)/2+20,
+y:47,
+fontSize:10,
+text:'maks',
+fill:'red',
+stroke:'black',
+strokeWidth:0.25,
+});
+layer3.add(vsub1_kom2);
+
+var vsub1_kom3=new Konva.Text({
+x:(stx+endx)/2+20,
+y:77,
+fontSize:10,
+text:'maks',
+fill:'red',
+stroke:'black',
+strokeWidth:0.25,
+});
+layer3.add(vsub1_kom3);
+
+
+
 var v_kom1= new Konva.Line({
 points:[stx,ym,p0,y0v_kom1,p1,y1v_kom1,p2,y2v_kom1,p3,y3v_kom1,p4,y4v_kom1,p5,y5v_kom1,p6,y6v_kom1,p7,y7v_kom1,p8,y8v_kom1,p9,y9v_kom1,p10,y10v_kom1,endx,ym],
 stroke: 'red',
@@ -1183,10 +1372,10 @@ strokeWidth: 2,
 layer3.add(v_kom1);
 
 var text1_kom1v=new Konva.Text({
-x:10,
+x:(stx+endx)/2+10,
 y:10,
-fontSize:10,
-text:'Vmax = '+Math.abs(vmax_kom1).toFixed(3)+' kN (Kombinasyon : 1.4G)',
+fontSize:15,
+text:'V       = '+Math.abs(vmax_kom1).toFixed(3)+' kN',
 fill:'red',
 stroke:'black',
 strokeWidth:0.5,
@@ -1194,10 +1383,10 @@ strokeWidth:0.5,
 layer3.add(text1_kom1v);
 
 var text1_kom2v=new Konva.Text({
-x:10,
-y:30,
-fontSize:10,
-text:'Vmax = '+Math.abs(vmax_kom2).toFixed(3)+' kN (Kombinasyon : 1.2G+1.6Q+0.5S)',
+x:(stx+endx)/2+10,
+y:40,
+fontSize:15,
+text:'V       = '+Math.abs(vmax_kom2).toFixed(3)+' kN',
 fill:'red',
 stroke:'black',
 strokeWidth:0.5,
@@ -1205,10 +1394,10 @@ strokeWidth:0.5,
 layer3.add(text1_kom2v);
 
 	var text1_kom3v=new Konva.Text({
-	x:10,
-	y:50,
-	fontSize:10,
-	text:'Vmax = '+Math.abs(vmax_kom3).toFixed(3)+' kN (Kombinasyon : 1.2G+1.6S+Q)',
+	x:(stx+endx)/2+10,
+	y:70,
+	fontSize:15,
+	text:'V       = '+Math.abs(vmax_kom3).toFixed(3)+' kN',
 	fill:'red',
 	stroke:'black',
 	strokeWidth:0.5,
@@ -1350,10 +1539,69 @@ layer3.add(text1_kom2v);
     var stage4 = new Konva.Stage({
     container: 'canvas4',
     width: width,
-    height: 450,
+    height: 400,
     });
     
+    
+
+    
     var layer4 = new Konva.Layer();
+    
+    var d1v_m= new Konva.Line({
+    points:[(stx+endx)/2,0,(stx+endx)/2,30],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer4.add(d1v_m);
+    
+    var d1v2_m= new Konva.Line({
+    points:[0,30,width,30],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer4.add(d1v2_m);
+    
+    var d1v3_m= new Konva.Line({
+    points:[(stx+endx)/2,100,(stx+endx)/2,130],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer4.add(d1v3_m);
+    
+    var d1v4_m= new Konva.Line({
+    points:[0,130,width,130],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer4.add(d1v4_m);
+    
+    var d1v5_m= new Konva.Line({
+    points:[(stx+endx)/2,200,(stx+endx)/2,230],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer4.add(d1v5_m);
+    
+    var d1v6_m= new Konva.Line({
+    points:[0,230,width,230],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer4.add(d1v6_m);
+    
+    var d1v7_m= new Konva.Line({
+    points:[(stx+endx)/2,300,(stx+endx)/2,330],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer4.add(d1v7_m);
+    
+    var d1v8_m= new Konva.Line({
+    points:[0,330,width,330],
+    stroke:'gray',
+    strokeWidth:1,
+    });
+    layer4.add(d1v8_m);
     
     var beam4 = new Konva.Line({
     points:[stx,50,endx,50],
@@ -1772,9 +2020,9 @@ layer3.add(text1_kom2v);
 	layer4.add(dg_kom4);
 	
 	var dtxtkom_1=new Konva.Text({
-	x:stx+(endx-stx)/2-20,
+	x:10,
 	y:10,
-	fontSize:20,
+	fontSize:15,
 	text:'G+Q',
 	fill:'red',
 	stroke:'black',
@@ -1783,20 +2031,31 @@ layer3.add(text1_kom2v);
 	layer4.add(dtxtkom_1);
 	
 	var dtxtmaxkom_1=new Konva.Text({
-	x:stx+(endx-stx)/2-40,
-	y:35,
-	fontSize:10,
-	text:'Δmax = '+dmax_kom1.toFixed(2)+'mm',
+	x:(std+endx)/2+10,
+	y:10,
+	fontSize:15,
+	text:'Δ        = '+dmax_kom1.toFixed(2)+'mm',
 	fill:'red',
 	stroke:'black',
 	strokeWidth:0.5,
 	});
 	layer4.add(dtxtmaxkom_1);
 	
+	var dsub1=new Konva.Text({
+	x:(stx+endx)/2+22,
+	y:17,
+	fontSize:10,
+	text:'maks',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.25,
+	});
+	layer4.add(dsub1);
+	
 	var dtxtkom_2=new Konva.Text({
-	x:stx+(endx-stx)/2-32,
+	x:10,
 	y:110,
-	fontSize:20,
+	fontSize:15,
 	text:'G+0.5S',
 	fill:'red',
 	stroke:'black',
@@ -1805,20 +2064,31 @@ layer3.add(text1_kom2v);
 	layer4.add(dtxtkom_2);
 	
 	var dtxtmaxkom_2=new Konva.Text({
-	x:stx+(endx-stx)/2-40,
-	y:135,
-	fontSize:10,
-	text:'Δmax = '+dmax_kom2.toFixed(2)+'mm',
+	x:(std+endx)/2+10,
+	y:110,
+	fontSize:15,
+	text:'Δ        = '+dmax_kom2.toFixed(2)+'mm',
 	fill:'red',
 	stroke:'black',
 	strokeWidth:0.5,
 	});
 	layer4.add(dtxtmaxkom_2);
 	
+	var dsub2=new Konva.Text({
+	x:(stx+endx)/2+22,
+	y:117,
+	fontSize:10,
+	text:'maks',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.25,
+	});
+	layer4.add(dsub2);
+	
 	var dtxtkom_3=new Konva.Text({
-	x:stx+(endx-stx)/2-5,
+	x:10,
 	y:210,
-	fontSize:20,
+	fontSize:15,
 	text:'Q',
 	fill:'red',
 	stroke:'black',
@@ -1827,20 +2097,31 @@ layer3.add(text1_kom2v);
 	layer4.add(dtxtkom_3);
 	
 	var dtxtmaxkom_3=new Konva.Text({
-	x:stx+(endx-stx)/2-40,
-	y:235,
-	fontSize:10,
-	text:'Δmax = '+dmax_kom3.toFixed(2)+'mm',
+	x:(std+endx)/2+10,
+	y:210,
+	fontSize:15,
+	text:'Δ        = '+dmax_kom3.toFixed(2)+'mm',
 	fill:'red',
 	stroke:'black',
 	strokeWidth:0.5,
 	});
 	layer4.add(dtxtmaxkom_3);
+	
+	var dsub3=new Konva.Text({
+	x:(stx+endx)/2+22,
+	y:217,
+	fontSize:10,
+	text:'maks',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.25,
+	});
+	layer4.add(dsub3);
 
 	var dtxtkom_4=new Konva.Text({
-	x:stx+(endx-stx)/2-5,
+	x:10,
 	y:310,
-	fontSize:20,
+	fontSize:15,
 	text:'S',
 	fill:'red',
 	stroke:'black',
@@ -1849,15 +2130,26 @@ layer3.add(text1_kom2v);
 	layer4.add(dtxtkom_4);
 	
 	var dtxtmaxkom_4=new Konva.Text({
-	x:stx+(endx-stx)/2-40,
-	y:335,
-	fontSize:10,
-	text:'Δmax = '+dmax_kom4.toFixed(2)+'mm',
+	x:(std+endx)/2+10,
+	y:310,
+	fontSize:15,
+	text:'Δ        = '+dmax_kom4.toFixed(2)+'mm',
 	fill:'red',
 	stroke:'black',
 	strokeWidth:0.5,
 	});
 	layer4.add(dtxtmaxkom_4);
+	
+	var dsub4=new Konva.Text({
+	x:(stx+endx)/2+22,
+	y:317,
+	fontSize:10,
+	text:'maks',
+	fill:'red',
+	stroke:'black',
+	strokeWidth:0.25,
+	});
+	layer4.add(dsub4);
 	
 	var divline1=new Konva.Line({
 	points:[0,100,width,100],
