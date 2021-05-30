@@ -47,7 +47,7 @@
 <div class="mx-auto" style="width:min(100vw,450px);">
     
     
-    <div class="mt-3 mb-3 mx-auto canvas" id="canvas" style="border:1px solid black; width:min(90vw,405px); height:200px"></div>
+    <div class="mt-3 mb-3 mx-auto canvas" id="canvas" style="border:1px solid black; width:min(90vw,405px); height:255px"></div>
     
 	<div class="dropdown-divider"></div>
     
@@ -562,168 +562,164 @@
     var stage = new Konva.Stage({
     container: 'canvas',
     width: width,
-    height: 200,
+    height: 255,
     });
     
     var layer = new Konva.Layer();
     
-    var beam = new Konva.Rect({
+    var beamust = new Konva.Rect({
     x: stx,
-    y: 95,
+    y: 145,
+    width: width*0.75,
+    height: 3,
+    fill: 'red',
+    stroke: 'black',
+    strokeWidth: 1,
+    });
+    layer.add(beamust);
+    
+    var beamort = new Konva.Rect({
+    x: stx,
+    y: 148,
     width: width*0.75,
     height: 10,
     fill: 'red',
     stroke: 'black',
-    strokeWidth: 2,
+    strokeWidth: 1,
     });
-    layer.add(beam);
+    layer.add(beamort);
+    
+    var beamalt = new Konva.Rect({
+    x: stx,
+    y: 158,
+    width: width*0.75,
+    height: 3,
+    fill: 'red',
+    stroke: 'black',
+    strokeWidth: 1,
+    });
+    layer.add(beamalt);
     
     var shapeg = new Konva.Rect({
     x: stx,
-    y: 65,
+    y: 95,
     width: width*0.75,
-    height: 10,
-    fill: 'gray',
-    stroke: 'gray',
-    strokeWidth: 2,
+    height: 25,
+    fill: '#adadad',
     });
     layer.add(shapeg);
     
+    
+    var pureg=loadG-m;
+    
+    var glen=('G = '+pureg.toFixed(3)+' kN/m + '+m.toFixed(3)+' kN/m').length;
+ 
     var shapegtext1 = new Konva.Text({
-    x: stx-15,
-    y: 65,
-    fontSize: 10,
-    Text: 'G :',
-    fill: 'gray',
-    stroke: 'gray',
+    x: (stx+endx)/2-glen*4,
+    y: 100,
+    fontSize: 15,
+    Text: 'G = '+pureg.toFixed(3)+' kN/m + '+m.toFixed(3)+' kN/m',
+    fill: 'black',
+    stroke: 'black',
     strokeWidth: 1,
     });
     layer.add(shapegtext1);
     
-    
-    var pureg=loadG-m;
- 
-    var shapegtext2 = new Konva.Text({
-    x: stx+5,
-    y: 65,
-    fontSize: 10,
-    Text: pureg.toFixed(3)+' kN/m + '+m.toFixed(3)+' kN/m',
-    fill: 'white',
-    stroke: 'white',
-    strokeWidth: 1,
-    });
-    layer.add(shapegtext2);
-    
     var shapeq = new Konva.Rect({
     x: stx,
-    y: 40,
+    y: 60,
     width: width*0.75,
-    height: 10,
+    height: 25,
     fill: 'black',
-    stroke: 'black',
-    strokeWidth: 2,
     });
     layer.add(shapeq);
     
-    var shapeqtext1 = new Konva.Text({
-    x: stx-15,
-    y: 40,
-    fontSize: 10,
-    Text: 'Q :',
-    fill: 'black',
-    stroke: 'black',
-    strokeWidth: 1,
-    });
-    layer.add(shapeqtext1);
+    var qlen=('Q = '+loadQ.toFixed(3)+' kN/m').length;
     
-    var shapeqtext2 = new Konva.Text({
-    x: stx+5,
-    y: 40,
-    fontSize: 10,
-    Text: loadQ.toFixed(3)+' kN/m',
+    var shapeqtext1 = new Konva.Text({
+    x: (stx+endx)/2-qlen*4,
+    y: 65,
+    fontSize: 15,
+    Text: 'Q = '+loadQ.toFixed(3)+' kN/m',
     fill: 'white',
     stroke: 'white',
     strokeWidth: 1,
     });
-    layer.add(shapeqtext2);
+    layer.add(shapeqtext1);
 	
 	var shapes = new Konva.Rect({
 	x: stx,
-	y: 15,
+	y: 25,
 	width: width*0.75,
-	height: 10,
+	height: 25,
 	fill: 'blue',
-	stroke: 'blue',
-	strokeWidth: 2,
 	});
 	layer.add(shapes);
 	
-	var shapestext1 = new Konva.Text({
-	x: stx-15,
-	y: 15,
-	fontSize: 10,
-	Text: 'S :',
-	fill: 'blue',
-	stroke: 'blue',
-	strokeWidth: 1,
-	});
-	layer.add(shapestext1);
+	var slen=('S = '+loadS.toFixed(3)+' kN/m').length;
 	
-	var shapestext2 = new Konva.Text({
-	x: stx+5,
-	y: 15,
-	fontSize: 10,
-	Text: loadS.toFixed(3)+' kN/m',
+	var shapestext1 = new Konva.Text({
+	x: (stx+endx)/2-slen*4,
+	y: 30,
+	fontSize: 15,
+	Text: 'S = '+loadS.toFixed(3)+' kN/m',
 	fill: 'white',
 	stroke: 'white',
 	strokeWidth: 1,
 	});
-	layer.add(shapestext2);
+	layer.add(shapestext1);
     
     var dimline1=new Konva.Line({
-    points:[stx,160,endx,160],
+    points:[stx,210,endx,210],
     stroke:'black',
     tension:1,
     });
     layer.add(dimline1);
     
 	var dimline2=new Konva.Line({
-	points:[stx+5,155,stx-5,165],
+	points:[stx+5,205,stx-5,215],
 	stroke:'black',
 	tension:1,
 	});
 	layer.add(dimline2);
 	
 	var dimline3=new Konva.Line({
-	points:[endx+5,155,endx-5,165],
+	points:[endx+5,205,endx-5,215],
 	stroke:'black',
 	tension:1,
 	});
 	layer.add(dimline3);
 	
+	var diml=(length+' m').length;
+	console.log(diml);
+
 	var dimtext=new Konva.Text({
-	x:0.5*width-15,
-	y:165,
-	fontSize:15,
+	x:(stx+endx)/2-diml*6,
+	y:215,
+	fontSize:20,
 	text:length+' m',
+	fill: 'black',
+	stroke: 'black',
+	strokeWidth: 1,
 	});
 	layer.add(dimtext);
 	
 	var profiletext=new Konva.Text({
-	x:0.5*width-30,
-	y:110,
-	fontSize:15,
+	x:(stx+endx)/2-(profil.length)*6,
+	y:165,
+	fontSize:20,
 	text:document.getElementById("profil").value,
 	fill:'red',
 	stroke:'black',
 	strokeWidth:0.5,
+	align:'center',
 	});
 	layer.add(profiletext);
     
     if (mesnet=="pp") {
 	    var sup1= new Konva.RegularPolygon({
 	    x:stx,
-	    y:115,
+	    y:169,
 	    sides:3,
 	    radius:10,
 	    fill:'black',
@@ -732,7 +728,7 @@
 	    
 	    var sup2= new Konva.RegularPolygon({
 	    x:endx,
-	    y:115,
+	    y:169,
 	    sides:3,
 	    radius:10,
 	    fill:'black',
@@ -743,18 +739,18 @@
     if (mesnet=="ff"){
 		var sup1= new Konva.Rect({
 		x:stx-5,
-		y:85,
+		y:137,
 		width:5,
-		height:30,
+		height:32,
 		fill:'black',
 		});
 		layer.add(sup1);
 		
 		var sup2= new Konva.Rect({
 		x:endx,
-		y:85,
+		y:137,
 		width:5,
-		height:30,
+		height:32,
 		fill:'black',
 		});
 		layer.add(sup2);
@@ -765,7 +761,7 @@
     
     var sup1= new Konva.RegularPolygon({
     x:stx,
-    y:115,
+    y:169,
     sides:3,
     radius:10,
     fill:'black',
@@ -774,9 +770,9 @@
     
     var sup2= new Konva.Rect({
     x:endx,
-    y:85,
+    y:137,
     width:5,
-    height:30,
+    height:32,
     fill:'black',
     });
     layer.add(sup2);
@@ -788,9 +784,9 @@
     
     var sup2= new Konva.Rect({
     x:endx,
-    y:85,
+    y:137,
     width:5,
-    height:30,
+    height:32,
     fill:'black',
     });
     layer.add(sup2);
