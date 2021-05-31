@@ -139,6 +139,7 @@
 	    			    </select>
 	    			    </div>
 	    </div>
+	   
 	    
 	    <div class="dropdown-divider"></div>
 	    
@@ -149,6 +150,22 @@
 	    
 	    		    <div class="col">
 	    			    <select class="custom-select" id="profil" onchange="cizim()">
+	    			    </select>
+	    			    </div>
+	    </div>
+	    
+	    <div class="dropdown-divider"></div>
+	    
+	    <div class="row">
+	    		    <div class="col">
+	    			    <label for="fy">Malzeme Sınıfı</label>
+	    		    </div>
+	    
+	    		    <div class="col">
+	    			    <select class="custom-select" id="fy" onchange="cizim()">
+	    			    <option value="235">S235</option>
+	    			    <option value="275" selected>S275</option>
+	    			    <option value="355">S355</option>
 	    			    </select>
 	    			    </div>
 	    </div>
@@ -274,9 +291,144 @@
 			    <th id="kesit_j" scope="col"></th>
 			    <th scope="col" colspan="2">Burulma Sabiti</th>
 			</tr>
+			<tr>
+			    <th scope="col">i<sub>ts</sub></th>
+			    <th id="kesit_its" scope="col"></th>
+			    <th scope="col" colspan="2">Etkin Atalet Yarıçapı</th>
+			</tr>
+			<tr>
+			    <th scope="col">λ<sub>f</sub></th>
+			    <th id="kesit_lf" scope="col"></th>
+			    <th scope="col" colspan="2">Başlık Etkin Genişlik/Kalınlık Oranı</th>
+			</tr>
+			<tr>
+			    <th scope="col">λ<sub>w</sub></th>
+			    <th id="kesit_lw" scope="col"></th>
+			    <th scope="col" colspan="2">Gövde Etkin Yükseklik/Kalınlık Oranı</th>
+			</tr>
+			<tr>
+			    <th scope="col">C<sub>f</sub></th>
+			    <th id="kesit_classf" scope="col"></th>
+			    <th scope="col" colspan="2">Kesit Başlık Sınıfı</th>
+			</tr>
+			<tr>
+			    <th scope="col">C<sub>w</sub></th>
+			    <th id="kesit_classw" scope="col"></th>
+			    <th scope="col" colspan="2">Kesit Gövde Sınıfı</th>
+			</tr>
 	    </tbody>
     </table>
  </div>
+ 
+     <div class="dropdown-divider"></div>
+ 
+ <div id="malzeme_tablo" class="mx-auto mt-3" style="width:90%;">
+    <table class="table table-striped table-bordered table-sm">
+ 	    <thead>
+ 		    <tr>
+ 			    <th colspan="4" class="table-dark" scope="col">Malzeme Bilgileri</th>
+ 		    </tr>
+ 	    </thead>
+ 	    <tbody>
+ 		    <tr>
+ 			    <th scope="col">E</th>
+ 			    <th id="malzeme_e" scope="col">200000 MPa</th>
+ 			    <th scope="col" colspan="2">Elastisite Modulü</th>
+ 		    </tr>
+ 		    <tr>
+	 		    <th scope="col">G</th>
+	 		    <th id="malzeme_e" scope="col">77200 MPa</th>
+	 		    <th scope="col" colspan="2">Kayma Modulü</th>
+ 		    </tr>
+ 		    
+ 		    <tr>
+	 		    <th scope="col">γ</th>
+	 		    <th id="malzeme_yogunluk" scope="col">7850 kg/m<sup>3</sup></th>
+	 		    <th scope="col" colspan="2">Yoğunluk</th>
+ 		    </tr>
+ 		    
+ 		    <tr>
+	 		    <th scope="col">ν</th>
+	 		    <th id="malzeme_nu" scope="col">0.30</th>
+	 		    <th scope="col" colspan="2">Poisson Oranı</th>
+ 		    </tr>
+ 		    
+ 		    <tr>
+	 		    <th scope="col">α</th>
+	 		    <th id="malzeme_alfa" scope="col">12×10<sup>-6</sup> °C<sup>-1</sup></th>
+	 		    <th scope="col" colspan="2">Isıl Genleşme Katsayısı</th>
+ 		    </tr>
+ 		    
+ 		    <tr>
+	 		    <th scope="col">T<sub>m</sub></th>
+	 		    <th id="malzeme_erimesicakligi" scope="col">1480 - 1526 ℃</th>
+	 		    <th scope="col" colspan="2">Erime Sıcaklığı</th>
+ 		    </tr>
+ 		    
+ 		    <tr>
+	 		    <th scope="col">E<sub>CO<sub>2</sub></sub></th>
+	 		    <th id="malzeme_co2emisyon" scope="col">1.9 - 2.1 kg/kg</th>
+	 		    <th scope="col" colspan="2">CO<sub>2</sub> Emisyonu</th>
+ 		    </tr>
+ 		    
+ 		    <tr>
+ 			    <th scope="col">F<sub>y</sub></th>
+ 			    <th id="malzeme_fy" scope="col"></th>
+ 			    <th scope="col" colspan="2">Akma Dayanımı</th>
+ 		    </tr>
+ 		    
+ 		    <tr>
+ 			    <th scope="col">F<sub>u</sub></th>
+ 			    <th id="malzeme_fu" scope="col"></th>
+ 			    <th scope="col" colspan="2">Kopma Dayanımı</th>
+ 		    </tr>
+ 	    </tbody>
+    </table>
+ </div>
+ 
+ <div class="dropdown-divider"></div>
+  
+  <div id="dayanim_table" class="mx-auto mt-3" style="width:90%;">
+     <table class="table table-striped table-bordered table-sm">
+  	    <thead>
+  		    <tr>
+  			    <th colspan="4" class="table-dark" scope="col">Dayanım Hesapları</th>
+  		    </tr>
+  	    </thead>
+  	    <tbody>
+	  	    <tr>
+		  	    <th scope="col">L<sub>b</sub></th>
+		  	    <th id="lb" scope="col"></th>
+		  	    <th scope="col" colspan="2">Stabilite Bağlantısı ile Desteklenmeyen Eleman Uzunluğu</th>
+	  	    </tr>
+	  	    <tr>
+		  	    <th scope="col">L<sub>p</sub></th>
+		  	    <th id="lp" scope="col"></th>
+		  	    <th scope="col" colspan="2">Akma Sınır Durumu İçin Yanal Olarak Desteklenmeyen Sınır Uzunluk</th>
+	  	    </tr>
+			<tr>
+		  	    <th scope="col">L<sub>r</sub></th>
+		  	    <th id="lr" scope="col"></th>
+		  	    <th scope="col" colspan="2">Elastik Olmayan Yanal Burulmalı Burkulmada Sınır Uzunluk</th>
+			</tr>
+	  	    <tr class="table-danger">
+		  	    <th scope="col">C<sub>b</sub></th>
+		  	    <th id="cb" scope="col"></th>
+		  	    <th scope="col" colspan="2">Moment Düzeltme Katsayısı</th>
+	  	    </tr>
+  		    <tr>
+  			    <th scope="col">M<sub>p</sub></th>
+  			    <th id="mp" scope="col"></th>
+  			    <th scope="col" colspan="2">Akma Dayanımı</th>
+  		    </tr>
+  		    <tr>
+  			    <th scope="col">M<sub>ltb</sub></th>
+  			    <th id="mltb" scope="col"></th>
+  			    <th scope="col" colspan="2">Yanal Burulmalı Burkulma Dayanımı</th>
+  		    </tr>
+  	    </tbody>
+     </table>
+  </div>
  
     
     <script type="text/javascript">
@@ -338,6 +490,7 @@
     var profiltype=document.getElementById("profiltype").value;
     var profilsecim=document.getElementById("profil");
     var profil=document.getElementById("profil").value;
+    var fy=parseFloat(document.getElementById("fy").value);
 	var e=200000;	
 
 
@@ -552,12 +705,66 @@
 	document.getElementById("kesit_wpy").innerHTML=(wpy*0.001).toFixed(2)+" cm<sup>3</sup>";
 	document.getElementById("kesit_cw").innerHTML=(cw*0.000001).toFixed(2)+" cm<sup>6</sup>";
 	document.getElementById("kesit_j").innerHTML=(j*0.0001).toFixed(2)+" cm<sup>4</sup>";
+	document.getElementById("kesit_its").innerHTML=(its).toFixed(2)+" mm";
+	document.getElementById("kesit_lf").innerHTML=(lf).toFixed(2);
+	document.getElementById("kesit_lw").innerHTML=(lw).toFixed(2);
+	
+	var lp_f=0.38*Math.sqrt(e/fy);
+	var lr_f=Math.sqrt(e/fy);	
+	var lp_w=3.76*Math.sqrt(e/fy);
+	var lr_w=5.7*Math.sqrt(e/fy);
+	
+	if (lf<=lp_f) {var class_baslik="Kompakt";}
+	if (lf>lp_f && lf<=lr_f) {var class_baslik="Kompakt Olmayan";}
+	if (lf>lr_f) {var class_baslik="Narin";}
+	
+	if (lw<=lp_w) {var class_govde="Kompakt";}
+	if (lw>lp_w && lw<=lr_w) {var class_govde="Kompakt Olmayan";}
+	if (lw>lr_w) {var class_govde="Narin";}
+	
+	document.getElementById("kesit_classf").innerHTML=class_baslik;
+	document.getElementById("kesit_classw").innerHTML=class_govde;
+	
+
 
     var mesnet=document.getElementById("mesnet").value;
     var length = parseFloat(document.getElementById("length").value);
     var loadG=parseFloat(document.getElementById("loadG").value)+m;
     var loadQ=parseFloat(document.getElementById("loadQ").value);
     var loadS=parseFloat(document.getElementById("loadS").value);
+    
+    var lb=length;
+    
+    if (profiltype=="hea" || profiltype=="heb" || profiltype=="hem" || profiltype=="ipe" || profiltype=="ipn") {var c=1;}
+    if(profiltype=="upe" || profiltype=="upn") {var c=h0*0.5*Math.sqrt(iy/cw);}
+    
+    var lp=1.76*ry*Math.sqrt(e/fy)*0.001;
+    var lr=1.95*its*(e/(0.7*fy))*Math.sqrt((j*c)/(wex*h0)+Math.sqrt(((j*c)/(wex*h0))*((j*c)/(wex*h0))+6.76*(0.7*fy/e)*(0.7*fy/e)))*0.001;
+    
+    var cb=1;
+    
+    if (fy==235) {var fu=360;}
+    if (fy==275) {var fu=430;}
+    if (fy==355) {var fu=510;}
+    
+    var fcr=((cb*Math.PI*Math.PI*e)/((lb*1000/its)*(lb*1000/its)))*Math.sqrt(1+((0.078*j*c)/(wex*h0))*((lb*1000/its)*(lb*1000/its)));
+    
+    var mp=fy*wpx*0.001*0.001;
+    var m_nonkompakt=Math.min(cb*(mp*1000*1000-(mp*1000*1000-0.7*fy*wex)*((lb-lp)/(lr-lp)))*0.001*0.001,mp);
+    var m_narin=Math.min(fcr*wex*0.001*0.001,mp);
+    
+    if(lb<=lp) {var m_ltb=mp.toFixed(2);}
+    if(lb>lp && lb<=lr) {var m_ltb=m_nonkompakt.toFixed(2);}
+    if(lb>lr) {var m_ltb=m_narin.toFixed(2);}
+    
+    document.getElementById("malzeme_fy").innerHTML=fy+" MPa";
+    document.getElementById("malzeme_fu").innerHTML=fu+" MPa";
+    document.getElementById("lb").innerHTML=lb.toFixed(2)+" m";
+    document.getElementById("lp").innerHTML=lp.toFixed(2)+" m";
+    document.getElementById("lr").innerHTML=lr.toFixed(2)+" m";
+    document.getElementById("cb").innerHTML=cb.toFixed(2);
+    document.getElementById("mp").innerHTML=mp.toFixed(2)+" kNm";
+    document.getElementById("mltb").innerHTML=m_ltb+" kNm";
     
     var stage = new Konva.Stage({
     container: 'canvas',
@@ -1994,6 +2201,7 @@ layer3.add(text1_kom2v);
 	strokeWidth: 2,
 	});
 	layer4.add(dg_kom1);
+	
 	
 	var dg_kom2= new Konva.Line({
 	points:[d0,yd0_kom2,d1,yd1_kom2,d2,yd2_kom2,d3,yd3_kom2,d4,yd4_kom2,d5,yd5_kom2,d6,yd6_kom2,d7,yd7_kom2,d8,yd8_kom2,d9,yd9_kom2,d10,yd10_kom2],
