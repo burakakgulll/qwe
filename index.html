@@ -172,6 +172,18 @@
 	    
 	    <div class="dropdown-divider"></div>
 	    
+	    <div class="row">
+	    		    <div class="col">
+	    			    <label for="ltb">Kiriş Boyunca Yanal Destek Adeti</label>
+	    		    </div>
+	    
+	    		    <div class="col">
+	    			    <input type="number" class="form-control" id="ltb" min="0" onchange="cizim()" value="0" onkeyup="minLtb()">
+	    			    </div>
+	    </div>
+	    
+	    <div class="dropdown-divider"></div>
+	    
 	    
 	    
     </div>
@@ -392,7 +404,7 @@
      <table class="table table-striped table-bordered table-sm">
   	    <thead>
   		    <tr>
-  			    <th colspan="4" class="table-dark" scope="col">Dayanım Hesapları</th>
+  			    <th colspan="4" class="table-dark" scope="col">Moment Dayanım Kontrolleri</th>
   		    </tr>
   	    </thead>
   	    <tbody>
@@ -411,7 +423,7 @@
 		  	    <th id="lr" scope="col"></th>
 		  	    <th scope="col" colspan="2">Elastik Olmayan Yanal Burulmalı Burkulmada Sınır Uzunluk</th>
 			</tr>
-	  	    <tr class="table-danger">
+	  	    <tr>
 		  	    <th scope="col">C<sub>b</sub></th>
 		  	    <th id="cb" scope="col"></th>
 		  	    <th scope="col" colspan="2">Moment Düzeltme Katsayısı</th>
@@ -426,9 +438,86 @@
   			    <th id="mltb" scope="col"></th>
   			    <th scope="col" colspan="2">Yanal Burulmalı Burkulma Dayanımı</th>
   		    </tr>
+  		    <tr>
+  			    <th scope="col">M<sub>local</sub></th>
+  			    <th id="mlocal" scope="col"></th>
+  			    <th scope="col" colspan="2">Yerel Burkulma Dayanımı</th>
+  		    </tr>
+  		    <tr>
+  			    <th scope="col">M<sub>n</sub></th>
+  			    <th id="mnominal" scope="col"></th>
+  			    <th scope="col" colspan="2">Nominal Moment Dayanımı, Min(M<sub>p</sub>,M<sub>ltb</sub>,M<sub>local</sub>)</th>
+  		    </tr>
+  		    <tr>
+  			    <th scope="col">Φ</th>
+  			    <th id="fi" scope="col">0.90</th>
+  			    <th scope="col" colspan="2">Güvenlik Katsayısı</th>
+  		    </tr>
+  		    <tr>
+	  		    <th scope="col">M<sub>d</sub></th>
+	  		    <th id="mdesign" scope="col"></th>
+	  		    <th scope="col" colspan="2">Dizayn Moment Dayanımı (ΦM<sub>n</sub>)</th>
+  		    </tr>
+  		    <tr>
+	  		    <th scope="col">M<sub>u</sub></th>
+	  		    <th id="mu" scope="col"></th>
+	  		    <th scope="col" colspan="2">Maksimum Moment</th>
+  		    </tr>
+  		    <tr id="moran_row1">
+	  		    <th scope="col">M<sub>u</sub>/M<sub>d</sub></th>
+	  		    <th id="m_oran" scope="col"></th>
+	  		    <th scope="col" colspan="2">Moment Dayanım Oranı</th>
+  		    </tr>
   	    </tbody>
      </table>
-  </div>
+     
+     </div>
+     
+          <div class="dropdown-divider"></div>
+     
+     <div id="sehim_tablo" class="mx-auto mt-3" style="width:90%;">
+     <table class="table table-striped table-bordered table-sm">
+	     <thead>
+		     <tr>
+			     <th colspan="4" class="table-dark" scope="col">Sehim Kontrolleri</th>
+		     </tr>
+		     <tr>
+ 			     <th class="table-dark" scope="col">Kombinasyon</th>
+ 			     <th class="table-dark" scope="col">Sehim</th>
+				<th class="table-dark" scope="col">Limit</th>
+				<th class="table-dark" scope="col">Oran</th>
+			</tr>
+	     </thead>
+	     <tbody>
+		     <tr id="gq">
+			     <th scope="col">G+Q</th>
+			     <th id="gq_sehim" scope="col"></th>
+			     <th id="gq_limit" scope="col"></th>
+			     <th id="gq_oran" scope="col"></th>
+		     </tr>
+		     <tr id="gs">
+ 			     <th scope="col">G+0.5S</th>
+ 			     <th id="gs_sehim" scope="col"></th>
+ 			     <th id="gs_limit" scope="col"></th>
+  			     <th id="gs_oran" scope="col"></th>
+		     </tr>
+		     <tr id="q">
+  			     <th scope="col">Q</th>
+  			     <th id="q_sehim" scope="col"></th>
+  			     <th id="q_limit" scope="col"></th>
+  			     <th id="q_oran" scope="col"></th>
+		     </tr>
+		     <tr id="s">
+   			     <th scope="col">S</th>
+   			     <th id="s_sehim" scope="col"></th>
+   			     <th id="s_limit" scope="col"></th>
+			     <th id="s_oran" scope="col"></th>
+		     </tr>
+	     </tbody>
+     </table>
+     </div>
+     
+
  
     
     <script type="text/javascript">
@@ -461,6 +550,14 @@
 		  if(document.getElementById("length").value != ""){
 		    if(document.getElementById("length").value < 0){
 		      document.getElementById("length").value = 0;
+		    }
+		  }
+		}
+		
+		function minLtb(){
+		  if(document.getElementById("ltb").value != ""){
+		    if(document.getElementById("ltb").value < 0){
+		      document.getElementById("ltb").value = 0;
 		    }
 		  }
 		}
@@ -733,7 +830,10 @@
     var loadQ=parseFloat(document.getElementById("loadQ").value);
     var loadS=parseFloat(document.getElementById("loadS").value);
     
-    var lb=length;
+    var ltbb=parseFloat(document.getElementById("ltb").value);
+    if (ltbb==0) {var lb=length;}
+    if (ltbb!=0) {var lb=length/(ltbb+1);}
+    
     
     if (profiltype=="hea" || profiltype=="heb" || profiltype=="hem" || profiltype=="ipe" || profiltype=="ipn") {var c=1;}
     if(profiltype=="upe" || profiltype=="upn") {var c=h0*0.5*Math.sqrt(iy/cw);}
@@ -741,30 +841,6 @@
     var lp=1.76*ry*Math.sqrt(e/fy)*0.001;
     var lr=1.95*its*(e/(0.7*fy))*Math.sqrt((j*c)/(wex*h0)+Math.sqrt(((j*c)/(wex*h0))*((j*c)/(wex*h0))+6.76*(0.7*fy/e)*(0.7*fy/e)))*0.001;
     
-    var cb=1;
-    
-    if (fy==235) {var fu=360;}
-    if (fy==275) {var fu=430;}
-    if (fy==355) {var fu=510;}
-    
-    var fcr=((cb*Math.PI*Math.PI*e)/((lb*1000/its)*(lb*1000/its)))*Math.sqrt(1+((0.078*j*c)/(wex*h0))*((lb*1000/its)*(lb*1000/its)));
-    
-    var mp=fy*wpx*0.001*0.001;
-    var m_nonkompakt=Math.min(cb*(mp*1000*1000-(mp*1000*1000-0.7*fy*wex)*((lb-lp)/(lr-lp)))*0.001*0.001,mp);
-    var m_narin=Math.min(fcr*wex*0.001*0.001,mp);
-    
-    if(lb<=lp) {var m_ltb=mp.toFixed(2);}
-    if(lb>lp && lb<=lr) {var m_ltb=m_nonkompakt.toFixed(2);}
-    if(lb>lr) {var m_ltb=m_narin.toFixed(2);}
-    
-    document.getElementById("malzeme_fy").innerHTML=fy+" MPa";
-    document.getElementById("malzeme_fu").innerHTML=fu+" MPa";
-    document.getElementById("lb").innerHTML=lb.toFixed(2)+" m";
-    document.getElementById("lp").innerHTML=lp.toFixed(2)+" m";
-    document.getElementById("lr").innerHTML=lr.toFixed(2)+" m";
-    document.getElementById("cb").innerHTML=cb.toFixed(2);
-    document.getElementById("mp").innerHTML=mp.toFixed(2)+" kNm";
-    document.getElementById("mltb").innerHTML=m_ltb+" kNm";
     
     var stage = new Konva.Stage({
     container: 'canvas',
@@ -1046,8 +1122,78 @@
     var mmax_kom2=mxKom2(length);
     var mmax_kom3=mxKom3(length);
     };
+    
+    var cb_kom1=[];
+    var cb_kom2=[];
+    var cb_kom3=[];
+    var i;
+    for (i=0;i<ltbb+1;i++) {
+    
+    var len1=(i)*lb;
+    var len2=len1+lb;
+    
+    cb_kom1[i]=(Math.abs(12.5*mmax_kom1))/(2.5*Math.abs(mmax_kom1)+3*Math.abs(mx_kom1(0.25*(len2-len1)+len1,mesnet,length,loadG,loadQ,loadS))+4*Math.abs(mx_kom1(0.5*(len2-len1)+len1,mesnet,length,loadG,loadQ,loadS))+3*Math.abs(mx_kom1(0.75*(len2-len1)+len1,mesnet,length,loadG,loadQ,loadS)));
+    cb_kom2[i]=(Math.abs(12.5*mmax_kom2))/(2.5*Math.abs(mmax_kom2)+3*Math.abs(mx_kom2(0.25*(len2-len1)+len1,mesnet,length,loadG,loadQ,loadS))+4*Math.abs(mx_kom2(0.5*(len2-len1)+len1,mesnet,length,loadG,loadQ,loadS))+3*Math.abs(mx_kom2(0.75*(len2-len1)+len1,mesnet,length,loadG,loadQ,loadS)));
+    cb_kom3[i]=(Math.abs(12.5*mmax_kom3))/(2.5*Math.abs(mmax_kom3)+3*Math.abs(mx_kom1(0.25*(len2-len1)+len1,mesnet,length,loadG,loadQ,loadS))+4*Math.abs(mx_kom3(0.5*(len2-len1)+len1,mesnet,length,loadG,loadQ,loadS))+3*Math.abs(mx_kom3(0.75*(len2-len1)+len1,mesnet,length,loadG,loadQ,loadS)));
+    }
+    var cb_v1=Math.min(...cb_kom1);
+    var cb_v2=Math.min(...cb_kom2);
+    var cb_v3=Math.min(...cb_kom3);
+    if (mesnet=="konsol") {var cb=1;}
+    if (mesnet!="konsol") {var cb=Math.min(cb_v1,cb_v2,cb_v3);}
+    
+    if (fy==235) {var fu=360;}
+    if (fy==275) {var fu=430;}
+    if (fy==355) {var fu=510;}
+    
+    //YANAL BURULMALI BURKULMA SINIR DURUMU
+    
+    var fcr=((cb*Math.PI*Math.PI*e)/((lb*1000/its)*(lb*1000/its)))*Math.sqrt(1+((0.078*j*c)/(wex*h0))*((lb*1000/its)*(lb*1000/its)));
+    
+    var mp=(fy*wpx*0.001*0.001).toFixed(2);
+    var m_ltb_halfplastic=Math.min(cb*(mp*1000*1000-(mp*1000*1000-0.7*fy*wex)*((lb-lp)/(lr-lp)))*0.001*0.001,mp);
+    var m_ltb_fullplastic=Math.min(fcr*wex*0.001*0.001,mp);
+   
+    if(lb<=lp) {var m_ltb=mp;}
+    if(lb>lp && lb<=lr) {var m_ltb=m_ltb_halfplastic.toFixed(2);}
+    if(lb>lr) {var m_ltb=m_ltb_fullplastic.toFixed(2);}
+    
+    //YEREL BURKULMA SINIR DURUMU
+    
+    var m_local=((mp*1000*1000-(mp*1000*1000-0.7*fy*wex)*((lf-lp_f)/(lr_f-lp_f)))*0.001*0.001).toFixed(2);
+    
+    
+    if(lb<=lp && class_baslik=="Kompakt" && class_govde=="Kompakt") {var m_ltb="-"; var m_local="-"; var mn=mp;}
+    if(lb>lp && lb<=lr && class_baslik=="Kompakt" && class_govde=="Kompakt") {var m_local="-"; var mn=Math.min(m_ltb,mp);}
+    if(lb>lr && class_baslik=="Kompakt" && class_govde=="Kompakt") {var m_local="-"; var mn=Math.min(m_ltb,mp);}
+    
+	if(lb<=lp && class_baslik=="Kompakt Olmayan" && class_govde=="Kompakt") {var m_ltb="-"; var mn=Math.min(mp,m_local);}
+	if(lb>lp && lb<=lr && class_baslik=="Kompakt Olmayan" && class_govde=="Kompakt") {var mn=Math.min(m_ltb,mp,m_local);}
+	if(lb>lr && class_baslik=="Kompakt Olmayan" && class_govde=="Kompakt") {var mn=Math.min(m_ltb,mp,m_local);}
 
+    if(class_baslik=="Narin" || class_govde=="Kompakt Olmayan" || class_govde=="Narin") {var m_ltb="HATA!!!"; var m_local="HATA!!!"; var mp="HATA!!!";}
 
+    var mu=Math.max(Math.abs(mmax_kom1),Math.abs(mmax_kom2),Math.abs(mmax_kom3));
+    var moran=mu/(0.9*mn);
+			
+    document.getElementById("malzeme_fy").innerHTML=fy+" MPa";
+    document.getElementById("malzeme_fu").innerHTML=fu+" MPa";
+    document.getElementById("lb").innerHTML=lb.toFixed(2)+" m";
+    document.getElementById("lp").innerHTML=lp.toFixed(2)+" m";
+    document.getElementById("lr").innerHTML=lr.toFixed(2)+" m";
+    document.getElementById("cb").innerHTML=cb.toFixed(2);
+    document.getElementById("mp").innerHTML=mp+" kNm";
+    document.getElementById("mltb").innerHTML=m_ltb+" kNm";
+    document.getElementById("mlocal").innerHTML=m_local+" kNm";
+    document.getElementById("mnominal").innerHTML=mn+" kNm";
+    document.getElementById("mdesign").innerHTML=(0.9*mn).toFixed(2)+" kNm";
+    document.getElementById("mu").innerHTML=(mu).toFixed(2)+" kNm";
+    document.getElementById("m_oran").innerHTML=(moran).toFixed(2)+" kNm";
+    
+    if (moran<=0.9) {document.getElementById("moran_row1").className='table-success';}
+    if (moran<1 && moran>0.9) {document.getElementById("moran_row1").className='table-warning';}
+    if (moran>1) {document.getElementById("moran_row1").className='table-danger';}
+    
     var ym=150;
     var p0=stx;
     var p1=stx+1*(endx-stx)/10;
@@ -2382,6 +2528,39 @@ layer3.add(text1_kom2v);
 	
     stage4.add(layer4);
     
+    
+        document.getElementById("gq_sehim").innerHTML=dmax_kom1.toFixed(2)+" mm";
+        document.getElementById("gs_sehim").innerHTML=dmax_kom2.toFixed(2)+" mm";
+        document.getElementById("q_sehim").innerHTML=dmax_kom3.toFixed(2)+" mm";
+        document.getElementById("s_sehim").innerHTML=dmax_kom4.toFixed(2)+" mm";
+        
+        var dlim1=(length*1000)/300;
+        var dlim2=(length*1000)/240;
+        var dlim3=(length*1000)/360;
+        var dlim4=(length*1000)/360;
+        
+		document.getElementById("gq_limit").innerHTML="L/300 = "+dlim1.toFixed(2)+" mm";
+		document.getElementById("gs_limit").innerHTML="L/240 = "+dlim2.toFixed(2)+" mm";
+		document.getElementById("q_limit").innerHTML="L/360 = "+dlim3.toFixed(2)+" mm";
+		document.getElementById("s_limit").innerHTML="L/360 = "+dlim4.toFixed(2)+" mm";
+		
+		document.getElementById("gq_oran").innerHTML=(dmax_kom1/(length*1000/300)).toFixed(2);
+		document.getElementById("gs_oran").innerHTML=(dmax_kom2/(length*1000/240)).toFixed(2);
+		document.getElementById("q_oran").innerHTML=(dmax_kom3/(length*1000/360)).toFixed(2);
+		document.getElementById("s_oran").innerHTML=(dmax_kom4/(length*1000/360)).toFixed(2);
+		
+		if (dmax_kom1/(length*1000/300)<1) {document.getElementById("gq").className='table-success';}
+		if (dmax_kom1/(length*1000/300)>=1) {document.getElementById("gq").className='table-danger';}
+		if (dmax_kom2/(length*1000/240)<1) {document.getElementById("gs").className='table-success';}
+		if (dmax_kom2/(length*1000/240)>=1) {document.getElementById("gs").className='table-danger';}
+		if (dmax_kom3/(length*1000/360)<1) {document.getElementById("q").className='table-success';}
+		if (dmax_kom3/(length*1000/360)>=1) {document.getElementById("q").className='table-danger';}
+		if (dmax_kom4/(length*1000/360)<1) {document.getElementById("s").className='table-success';}
+		if (dmax_kom4/(length*1000/360)>=1) {document.getElementById("s").className='table-danger';}
+		
+
+
+		
 }
 
 
